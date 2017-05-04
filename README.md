@@ -1,6 +1,6 @@
 # Office Add-in that supports Single Sign-on to Office, the Add-in, and Microsoft Graph
 
-The `getAccessTokenAsync` API in Office.js enables users who are signed into Office to get access to an AAD-protected add-in and to Microsoft Graph without needing to sign-in again. This sample is built on NodeJS and express. 
+The `getAccessTokenAsync` API in Office.js enables users who are signed into Office to get access to an AAD-protected add-in and to Microsoft Graph without needing to sign-in again. This sample is built on Node.js and express. 
 
  > Note: The `getAccessTokenAsync` API is in preview.
 
@@ -27,7 +27,7 @@ May 10, 2017:
 
 ## To use the project
 
-This sample is meant to accompany the walkthrough at: [Create a NodeJS Office Add-in that uses Single Sign-on (preview)](https://dev.office.com/docs/add-ins/develop/create-sso-office-add-ins-nodejs.md)
+This sample is meant to accompany the walkthrough at: [Create a Node.js Office Add-in that uses Single Sign-on (preview)](https://dev.office.com/docs/add-ins/develop/create-sso-office-add-ins-nodejs)
 
 There are two versions of the sample, in the folders **Before** and **Completed**.
 
