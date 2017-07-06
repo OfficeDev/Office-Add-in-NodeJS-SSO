@@ -101,7 +101,7 @@ app.get('/api/onedriveitems', handler(async (req, res) => {
     const { jwt } = auth.verifyJWT(req, { scp: 'access_as_user' });
 
     // We don't pass a resource parameter becuase the token endpoint is Azure AD V2.
-    const graphToken = await auth.acquireTokenOnBehalfOf(jwt, ['profile', 'Files.Read.All']);
+    const graphToken = await auth.acquireTokenOnBehalfOf(jwt, ['Files.Read.All']);
 
     // Minimize the data that must come from MS Graph by specifying only the property we need ("name")
     // and only the top 3 folder or file names.

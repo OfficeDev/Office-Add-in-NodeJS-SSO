@@ -135,7 +135,6 @@
     <WebApplicationId>{application_GUID here}</WebApplicationId>
     <WebApplicationResource>api://localhost:3000/{application_GUID here}</WebApplicationResource>
     <WebApplicationScopes>
-        <WebApplicationScope>profile</WebApplicationScope>
         <WebApplicationScope>files.read.all</WebApplicationScope>
     </WebApplicationScopes>
   </VersionOverrides>
