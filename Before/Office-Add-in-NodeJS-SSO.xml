@@ -132,11 +132,13 @@
       </bt:LongStrings>
     </Resources>
 
-    <WebApplicationId>{application_GUID here}</WebApplicationId>
-    <WebApplicationResource>api://localhost:3000/{application_GUID here}</WebApplicationResource>
-    <WebApplicationScopes>
-        <WebApplicationScope>files.read.all</WebApplicationScope>
-    </WebApplicationScopes>
+    <WebApplicationInfo>
+      <Id>{application GUID here}</Id>
+      <Resource>api://localhost:3000/{application_GUID here}</Resource>
+      <Scopes>
+        <Scope>files.read.all</Scope>
+      </Scopes>
+    </WebApplicationInfo>
   </VersionOverrides>
   <!-- End Add-in Commands Mode integration. -->
 
