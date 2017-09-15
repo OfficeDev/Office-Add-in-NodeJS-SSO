@@ -20,5 +20,10 @@ export class ServerStorage {
         } else {
             return null;
         }
-    }    
+    }
+    
+    public static clear() {
+        storage.initSync();
+        storage.clearSync();
+    }
 }

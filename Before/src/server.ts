@@ -81,7 +81,7 @@ if (env === 'development') {
 }
 else {
     /**
-     * We dont use https as we are assuming the production environment would be on Azure.
+     * We don't use https as we are assuming the production environment would be on Azure.
      * Here IIS_NODE will handle https requests and pass them along to the node http module
      */
     app.listen(process.env.port || 1337, () => console.log(`Server listening on port ${process.env.port}`));

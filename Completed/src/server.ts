@@ -81,7 +81,7 @@ if (env === 'development') {
 }
 else {
     /**
-     * We dont use https as we are assuming the production environment would be on Azure.
+     * We don't use https as we are assuming the production environment would be on Azure.
      * Here IIS_NODE will handle https requests and pass them along to the node http module
      */
     app.listen(process.env.port || 1337, () => console.log(`Server listening on port ${process.env.port}`));
@@ -95,13 +95,29 @@ else {
 app.get('/api/onedriveitems', handler(async (req, res) => {
     /**
      * Only initializes the auth the first time
-     * and uses the downloaded information subsequently.
+     * and uses the downloaded keys information subsequently.
      */
     await auth.initialize();
     const { jwt } = auth.verifyJWT(req, { scp: 'access_as_user' });
 
+    let graphToken = null;
+
     // We don't pass a resource parameter becuase the token endpoint is Azure AD V2.
-    const graphToken = await auth.acquireTokenOnBehalfOf(jwt, ['Files.Read.All']);
+    const tokenAcquisitionResponse = await auth.acquireTokenOnBehalfOf(jwt, ['Files.Read.All']);
+
+    // If the response is a string containing 'capolids" then this is a claims
+    // message from AAD that multi-factor auth is required. Pass the message to 
+    // the client, which uses it to start a second sign-on. The string tells AAD
+    // what additional auth factor(s) it should prompt the user to provide.
+    if (tokenAcquisitionResponse.includes('capolids')) {
+        const claims: string[] = [];
+        claims.push(tokenAcquisitionResponse);
+        return res.json(claims);
+    } else {
+        // The response is the token to Graph itself. Rename it so remaining code
+        // is self-documenting.
+        graphToken = tokenAcquisitionResponse;
+    }
 
     // Minimize the data that must come from MS Graph by specifying only the property we need ("name")
     // and only the top 3 folder or file names.
@@ -124,5 +140,3 @@ app.get('/api/onedriveitems', handler(async (req, res) => {
 app.get('/index.html', handler(async (req, res) => {
     return res.sendfile('index.html');
 }));
-
-

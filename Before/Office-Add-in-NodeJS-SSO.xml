@@ -131,12 +131,12 @@
         <bt:String id="Contoso.GetStarted.Description" DefaultValue="Your sample add-in loaded succesfully. Go to the HOME tab and click the 'Show Sample' button to get started." />
       </bt:LongStrings>
     </Resources>
-
     <WebApplicationInfo>
       <Id>{application GUID here}</Id>
       <Resource>api://localhost:3000/{application_GUID here}</Resource>
       <Scopes>
         <Scope>files.read.all</Scope>
+        <Scope>profile</Scope>
       </Scopes>
     </WebApplicationInfo>
   </VersionOverrides>

@@ -13,14 +13,13 @@ The `getAccessTokenAsync` API in Office.js enables users who are signed into Off
 
 ## Change History
 
-May 10, 2017:
-
-* Initial version.
+* May 10, 2017: Initial version.
+* September 15, 2017: Added handling for 2FA.
 
 ## Prerequisites
 
 * An Office 365 account.
-* Office 2016, Version 1704, build 16.0.8027.1000 Click-to-Run, or later. You many need to be an Office Insider to obtain this version. For more information, see [Be an Office Insider](https://products.office.com/en-us/office-insider?tab=tab-1) .
+* Office 2016, Version 1710, build 16.0.8605.1000 Click-to-Run, or later. You many need to be an Office Insider to obtain this version. For more information, see [Be an Office Insider](https://products.office.com/en-us/office-insider?tab=tab-1) .
 * [Node and npm](https://nodejs.org/en/), version 6.9.4 or later.
 * [Git Bash](https://git-scm.com/downloads) (Or another git client.)
 * TypeScript version 2.2.2 or later.

@@ -211,7 +211,35 @@ ${signing_key}
 
             if (res.status !== 200) {
                 const exception = await res.json();
-                throw exception;
+                /* 
+                  There are configurations of Azure Active Directory in which the user is
+                  required to provide additional authentication factor(s) to access some
+                  Microsoft Graph targets (e.g., OneDrive), even if the user can sign on
+                  to Office with just a password. In that case, AAD will throw an exception
+                  that has a Claims property. This value needs to be passed back to the
+                  client which should initiate a second sign-on for the user and include
+                  the Claims value in the call to the AAD. AAD will prompt the user to 
+                  provide the addtional factor(s).                
+                */
+
+                // Check if AAD is the STS.
+                if (this.stsDomain === 'https://login.microsoftonline.com') {
+                    if (JSON.stringify(exception.claims)) {                       
+                        
+                        // There's an unexpired token in storage that was obtained with only
+                        // the user's password. To prevent this module from reusing it and
+                        // cycling repeatedly through this code, delete it.
+                        ServerStorage.clear();
+
+                        // Send the claims value to the client.
+                        return JSON.stringify(exception.claims);    
+                    } else {                    
+                        throw exception;
+                    }
+                }
+                else {                    
+                    throw exception;
+                }
             }
 
             const json = await res.json();
@@ -226,8 +254,8 @@ ${signing_key}
             return resourceToken;
         }
         catch (exception) {
-            throw new UnauthorizedError('Unable to obtain an access token to the resource' 
-                                        + ' ' + exception.message, 
+            throw new UnauthorizedError('Unable to obtain an access token to the resource. ' 
+                                        + JSON.stringify(exception), 
                                         exception);
         }
     }
