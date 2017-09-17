@@ -225,10 +225,6 @@ ${signing_key}
                 // Check if AAD is the STS.
                 if (this.stsDomain === 'https://login.microsoftonline.com') {
                     if (JSON.stringify(exception.claims)) {                       
-                        
-                        // There's an unexpired token in storage that was obtained with only
-                        // the user's password. To prevent this module from reusing it and
-                        // cycling repeatedly through this code, delete it.
                         ServerStorage.clear();
 
                         // Send the claims value to the client.
