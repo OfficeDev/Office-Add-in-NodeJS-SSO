@@ -13,6 +13,7 @@ import * as cors from 'cors';
 import * as morgan from 'morgan';
 import { AuthModule } from './auth';
 import { MSGraphHelper} from './msgraph-helper';
+import { UnauthorizedError } from './errors';
 
 /* Set the environment to development if not set */
 const env = process.env.NODE_ENV || 'development';
@@ -20,8 +21,8 @@ const env = process.env.NODE_ENV || 'development';
 /* Instantiate AuthModule to assist with JWT parsing and verification, and token acquisition. */
 const auth = new AuthModule(
     /* These values are required for our application to exhcange and get access to the resource data */
-    /* client_id */ '{client GUID}',
-    /* client_secret */ '{client secret}',
+    /* client_id */ '89b8276d-003c-47d3-b351-03260447349e',
+    /* client_secret */ 'xSB4ZkM5pg4gXgxpet94OF0',
 
     /* This information tells our server where to download the signing keys to validate the JWT that we received,
      * and where to get tokens. This is not configured for multi tenant; i.e., it is assumed that the source of the JWT and our application live
@@ -34,9 +35,9 @@ const auth = new AuthModule(
 
     /* Token is validated against the following values: */
     // Audience is the same as the client ID because, relative to the Office host, the add-in is the "resource".
-    /* audience */ '{audience GUID}', 
+    /* audience */ '89b8276d-003c-47d3-b351-03260447349e', 
     /* scopes */ ['access_as_user'],
-    /* issuer */ 'https://login.microsoftonline.com/{O365 tenant GUID}/v2.0',
+    /* issuer */ 'https://login.microsoftonline.com/efc2f964-8ba9-4fac-b971-1c1da35acbcd/v2.0',
 );
 
 /* A promisified express handler to catch errors easily */
@@ -68,6 +69,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static('public'));
+/* Turn off caching when debugging */
+app.use(function (req, res, next) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+    next()
+});
 
 /**
  * If running on development env, then use the locally available certificates.
@@ -88,11 +96,11 @@ else {
 }
 
 /**
- * HTTP GET: /api/onedriveitems
+ * HTTP GET: /api/values
  * When passed a JWT token in the header, it extracts it and
  * and exchanges for a token that has permissions to graph.
  */
-app.get('/api/onedriveitems', handler(async (req, res) => {
+app.get('/api/values', handler(async (req, res) => {
     /**
      * Only initializes the auth the first time
      * and uses the downloaded keys information subsequently.
@@ -100,28 +108,20 @@ app.get('/api/onedriveitems', handler(async (req, res) => {
     await auth.initialize();
     const { jwt } = auth.verifyJWT(req, { scp: 'access_as_user' });
 
-    let graphToken = null;
-
     // We don't pass a resource parameter becuase the token endpoint is Azure AD V2.
-    const tokenAcquisitionResponse = await auth.acquireTokenOnBehalfOf(jwt, ['Files.Read.All']);
-
-    // If the response is a string containing 'capolids" then this is a claims
-    // message from AAD that multi-factor auth is required. Pass the message to 
-    // the client, which uses it to start a second sign-on. The string tells AAD
-    // what additional auth factor(s) it should prompt the user to provide.
-    if (tokenAcquisitionResponse.includes('capolids')) {
-        const claims: string[] = [];
-        claims.push(tokenAcquisitionResponse);
-        return res.json(claims);
-    } else {
-        // The response is the token to Graph itself. Rename it so remaining code
-        // is self-documenting.
-        graphToken = tokenAcquisitionResponse;
-    }
+    const graphToken = await auth.acquireTokenOnBehalfOf(jwt, ['Files.Read.All', 'Calendars.Read']);
 
     // Minimize the data that must come from MS Graph by specifying only the property we need ("name")
     // and only the top 3 folder or file names.
-    const graphData = await MSGraphHelper.getGraphData(graphToken, "/me/drive/root/children", "?$select=name&$top=3");   
+    const graphData = await MSGraphHelper.getGraphData(graphToken, "/me/drive/root/children", "?$select=name&$top=3"); 
+
+    // If Microsoft Graph returns an error, such as invalid or expired token,
+    // relay it to the client.
+    if (graphData.code) {
+        if (graphData.code === 401) {
+            throw new UnauthorizedError('Microsoft Graph error', graphData);
+        }
+    }
 
     // Graph data includes OData metadata and eTags that we don't need. 
     // Send only what is actually needed to the client: the item names.
@@ -140,3 +140,5 @@ app.get('/api/onedriveitems', handler(async (req, res) => {
 app.get('/index.html', handler(async (req, res) => {
     return res.sendfile('index.html');
 }));
+
+

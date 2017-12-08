@@ -25,3 +25,25 @@ function showResult(data) {
 		'</span></li>');
 	}
 }
+
+function logError(result) {
+
+    // Error messages can have a variety of structures depending on the ultimate
+    // ultimate source and how intervening code restructures it before relaying it.
+    console.log("Status: " + result.status);
+    if (result.error.code) {
+        console.log("Code: " + result.error.code);
+    }
+    if (result.error.name) {
+        console.log("Code: " + result.error.name);
+    }
+    if (result.error.message) {
+        console.log("Code: " + result.error.message);
+    }
+    if (result.responseJSON.error.name) {
+        console.log("Code: " + result.responseJSON.error.name);
+    }
+    if (result.responseJSON.error.name) {
+        console.log("Code: " + result.responseJSON.error.name);
+    }       
+}

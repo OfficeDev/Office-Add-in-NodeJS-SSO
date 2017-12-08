@@ -4,12 +4,13 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
         {
             "name": "Launch server.js via nodemon",
             "type": "node",
             "request": "launch",
             "cwd": "${workspaceRoot}",
-          //   "runtimeExecutable": "nodemon", 
+            //"runtimeExecutable": "nodemon", 
             "runtimeExecutable": "${workspaceRoot}\\node_modules\\.bin\\nodemon.cmd", 
             "runtimeArgs": [
                 "--debug=5858"
@@ -21,6 +22,7 @@
             "sourceMaps": true,
             "restart": true,
             "port": 5858,
+            "protocol": "legacy",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "windows": {

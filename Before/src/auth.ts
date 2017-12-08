@@ -12,20 +12,6 @@ import * as moment from 'moment';
 import { ServerStorage } from './server-storage';
 import { ServerError, UnauthorizedError } from './errors';
 
-/**
- * NOTE: Why we aren't using passport?
- * passport depends on a middleware ie passport-jwt to complete the
- * JWT extraction and pass it downstream to a request handler.
- *
- * Currently passport-jwt doesn't have support for a dynamic-key.
- * Here's an active pull request that should address the issue
- * (https://github.com/themikenicholson/passport-jwt/pull/108)
- * (https://github.com/themikenicholson/passport-jwt/issues/94)
- *
- * When that commit is merged and the library is updated,
- * it is advised to switch to the same.
- */
-
 export class AuthModule {
     keys: { [kid: string]: string };
     isInitialized: boolean;

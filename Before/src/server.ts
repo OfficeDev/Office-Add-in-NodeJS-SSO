@@ -13,6 +13,7 @@ import * as cors from 'cors';
 import * as morgan from 'morgan';
 import { AuthModule } from './auth';
 import { MSGraphHelper} from './msgraph-helper';
+import { UnauthorizedError } from './errors';
 
 /* Set the environment to development if not set */
 const env = process.env.NODE_ENV || 'development';
@@ -68,6 +69,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static('public'));
+/* Turn off caching when debugging */
+app.use(function (req, res, next) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+    next()
+});
 
 /**
  * If running on development env, then use the locally available certificates.

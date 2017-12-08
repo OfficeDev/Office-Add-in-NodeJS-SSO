@@ -12,20 +12,6 @@ import * as moment from 'moment';
 import { ServerStorage } from './server-storage';
 import { ServerError, UnauthorizedError } from './errors';
 
-/**
- * NOTE: Why we aren't using passport?
- * passport depends on a middleware ie passport-jwt to complete the
- * JWT extraction and pass it downstream to a request handler.
- *
- * Currently passport-jwt doesn't have support for a dynamic-key.
- * Here's an active pull request that should address the issue
- * (https://github.com/themikenicholson/passport-jwt/pull/108)
- * (https://github.com/themikenicholson/passport-jwt/issues/94)
- *
- * When that commit is merged and the library is updated,
- * it is advised to switch to the same.
- */
-
 export class AuthModule {
     keys: { [kid: string]: string };
     isInitialized: boolean;
@@ -191,8 +177,6 @@ ${signing_key}
 
             let finalParams = {};
             if (resource) {
-                // In JavaScript we could just add the resource property to the v2Params
-                // object, but that won't compile in TypeScript.
                 let v1Params  = { resource: resource };  
                 for(var key in v2Params) { v1Params[key] = v2Params[key]; }
                 finalParams = v1Params;
@@ -211,31 +195,7 @@ ${signing_key}
 
             if (res.status !== 200) {
                 const exception = await res.json();
-                /* 
-                  There are configurations of Azure Active Directory in which the user is
-                  required to provide additional authentication factor(s) to access some
-                  Microsoft Graph targets (e.g., OneDrive), even if the user can sign on
-                  to Office with just a password. In that case, AAD will throw an exception
-                  that has a Claims property. This value needs to be passed back to the
-                  client which should initiate a second sign-on for the user and include
-                  the Claims value in the call to the AAD. AAD will prompt the user to 
-                  provide the addtional factor(s).                
-                */
-
-                // Check if AAD is the STS.
-                if (this.stsDomain === 'https://login.microsoftonline.com') {
-                    if (JSON.stringify(exception.claims)) {                       
-                        ServerStorage.clear();
-
-                        // Send the claims value to the client.
-                        return JSON.stringify(exception.claims);    
-                    } else {                    
-                        throw exception;
-                    }
-                }
-                else {                    
-                    throw exception;
-                }
+                throw exception;                
             }
 
             const json = await res.json();
