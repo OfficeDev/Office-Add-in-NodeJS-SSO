@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See full license in the root of the repo.
 
-/* 
-    This file provides the provides server startup, authorization context creation, and the Web APIs of the add-in. 
+/*
+    This file provides the provides server startup, authorization context creation, and the Web APIs of the add-in.
 */
 
 import * as fs from 'fs';
@@ -35,7 +35,7 @@ const auth = new AuthModule(
 
     /* Token is validated against the following values: */
     // Audience is the same as the client ID because, relative to the Office host, the add-in is the "resource".
-    /* audience */ '89b8276d-003c-47d3-b351-03260447349e', 
+    /* audience */ '89b8276d-003c-47d3-b351-03260447349e',
     /* scopes */ ['access_as_user'],
     /* issuer */ 'https://login.microsoftonline.com/efc2f964-8ba9-4fac-b971-1c1da35acbcd/v2.0',
 );
@@ -109,11 +109,11 @@ app.get('/api/values', handler(async (req, res) => {
     const { jwt } = auth.verifyJWT(req, { scp: 'access_as_user' });
 
     // We don't pass a resource parameter becuase the token endpoint is Azure AD V2.
-    const graphToken = await auth.acquireTokenOnBehalfOf(jwt, ['Files.Read.All', 'Calendars.Read']);
+    const graphToken = await auth.acquireTokenOnBehalfOf(jwt, ['Files.Read.All']);
 
     // Minimize the data that must come from MS Graph by specifying only the property we need ("name")
     // and only the top 3 folder or file names.
-    const graphData = await MSGraphHelper.getGraphData(graphToken, "/me/drive/root/children", "?$select=name&$top=3"); 
+    const graphData = await MSGraphHelper.getGraphData(graphToken, "/me/drive/root/children", "?$select=name&$top=3");
 
     // If Microsoft Graph returns an error, such as invalid or expired token,
     // relay it to the client.
@@ -123,14 +123,14 @@ app.get('/api/values', handler(async (req, res) => {
         }
     }
 
-    // Graph data includes OData metadata and eTags that we don't need. 
+    // Graph data includes OData metadata and eTags that we don't need.
     // Send only what is actually needed to the client: the item names.
     const itemNames: string[] = [];
     const oneDriveItems: string[] = graphData['value'];
     for (let item of oneDriveItems){
         itemNames.push(item['name']);
     }
-    return res.json(itemNames);   
+    return res.json(itemNames);
 }));
 
 /**
