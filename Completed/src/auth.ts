@@ -143,9 +143,12 @@ ${signing_key}
         // Get a new resource token by exchange, if the current one has expired or will in the next minute
         // or doesn't exist yet (e.g., the add-in is being run for the first time on this computer). Else
         // get it from storage.
-        const resourceTokenExpirationTime = ServerStorage.retrieve('ResourceTokenExpiresAt');
+
+        const {payload} = jsonwebtoken.decode(jwt, {complete: true});
+
+        const resourceTokenExpirationTime = ServerStorage.retrieve(payload.preferred_username + ':ResourceTokenExpiresAt');
         if (moment().add(1, 'minute').diff(resourceTokenExpirationTime) < 1 ) {
-            return ServerStorage.retrieve('ResourceToken');
+            return ServerStorage.retrieve(payload.preferred_username + ':ResourceToken');
         } else if (resource) {
             return this.exchangeForToken(jwt, scopes, resource);
         } else {
@@ -201,11 +204,12 @@ ${signing_key}
             const json = await res.json();
 
             // Persist the token and it's expiration time.
+            const {payload} = jsonwebtoken.decode(jwt, {complete: true});
             const resourceToken = json['access_token'];
-            ServerStorage.persist('ResourceToken', resourceToken);
+            ServerStorage.persist(payload.preferred_username + ':ResourceToken', resourceToken);
             const expiresIn = json['expires_in'];  // seconds until token expires.
             const resourceTokenExpiresAt = moment().add(expiresIn, 'seconds');
-            ServerStorage.persist('ResourceTokenExpiresAt', resourceTokenExpiresAt);
+            ServerStorage.persist(payload.preferred_username + ':ResourceTokenExpiresAt', resourceTokenExpiresAt);
 
             return resourceToken;
         }
