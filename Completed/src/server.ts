@@ -30,7 +30,7 @@ const auth = new AuthModule(
      */
     /* tenant */ 'common',
     /* stsDomain */ 'https://login.microsoftonline.com',
-    /* discoveryURLsegment */ '.well-known/openid-configuration',
+    /* discoveryURLsegment */ 'v2.0/.well-known/openid-configuration',
     /* tokenURLsegment */ '/oauth2/v2.0/token',
 
     /* Token is validated against the following values: */
