@@ -29,11 +29,13 @@ The `getAccessTokenAsync` API in Office.js enables users who are signed into Off
 
 This sample is meant to accompany the walkthrough at: [Create a Node.js Office Add-in that uses Single Sign-on (preview)](https://dev.office.com/docs/add-ins/develop/create-sso-office-add-ins-nodejs)
 
-There are two versions of the sample, in the folders **Before** and **Completed**.
+There are three versions of the sample, in the folders **Before**, **Completed**, **Completed Multitenant**.
 
 To use the Before version and manually add the crucial SSO-oriented code, follow all the procedures in the article linked to above.
 
-To work with the Completed version, follow all the procedures, except the sections "Code the client-side" and "Code the server-side" in the article linked to above.
+To work with the Completed versions, follow all the procedures, except the sections "Code the client-side" and "Code the server-side" in the article linked to above.
+
+_Completed Multitenant_ version allows you to use SSO with any microsoft account regardless of its domain.
 
 ## Questions and comments
 
