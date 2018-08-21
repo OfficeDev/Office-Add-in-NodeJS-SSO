@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "removeComments": false,
+        "noImplicitAny": false,
+        "noEmitOnError": true,
+        "rootDir": "src",
+        "outDir": "dist",
+        "allowUnusedLabels": false,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "allowSyntheticDefaultImports": true,
+        "lib": [
+            "es7",
+            "dom"
+        ],
+        "pretty": true,
+        "sourceMap": true,
+        "strictNullChecks": false,
+        "typeRoots": [
+            "node_modules/@types"
+        ]
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "compileOnSave": false,
+    "buildOnSave": false
+}
