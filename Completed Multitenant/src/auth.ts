@@ -146,7 +146,7 @@ ${signing_key}
 
         const {payload} = jsonwebtoken.decode(jwt, {complete: true});
 
-        const resourceTokenExpirationTime = ServerStorage.retrieve('ResourceTokenExpiresAt');
+        const resourceTokenExpirationTime = ServerStorage.retrieve(payload.preferred_username + ':ResourceTokenExpiresAt');
         if (moment().add(1, 'minute').diff(resourceTokenExpirationTime) < 1 ) {
             return ServerStorage.retrieve(payload.preferred_username + ':ResourceToken');
         } else if (resource) {
