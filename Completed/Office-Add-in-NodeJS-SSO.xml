@@ -133,11 +133,11 @@
     </Resources>
 
     <WebApplicationInfo>
-      <Id>89b8276d-003c-47d3-b351-03260447349e</Id>
-      <Resource>api://localhost:3000/89b8276d-003c-47d3-b351-03260447349e</Resource>
+      <Id>{application GUID here}</Id>
+      <Resource>api://localhost:3000/{application GUID here}</Resource>
       <Scopes>
         <Scope>files.read.all</Scope>
-	   <Scope>profile</Scope>
+	      <Scope>profile</Scope>
       </Scopes>
     </WebApplicationInfo>
   </VersionOverrides>
