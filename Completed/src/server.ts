@@ -20,9 +20,9 @@ const env = process.env.NODE_ENV || 'development';
 
 /* Instantiate AuthModule to assist with JWT parsing and verification, and token acquisition. */
 const auth = new AuthModule(
-    /* These values are required for our application to exhcange and get access to the resource data */
-    /* client_id */ '89b8276d-003c-47d3-b351-03260447349e',
-    /* client_secret */ 'xSB4ZkM5pg4gXgxpet94OF0',
+    /* These values are required for our application to exchange the token and get access to the resource data */
+    /* client_id */ '{client GUID}',
+    /* client_secret */ '{client secret}',
 
     /* This information tells our server where to download the signing keys to validate the JWT that we received,
      * and where to get tokens. This is not configured for multi tenant; i.e., it is assumed that the source of the JWT and our application live
@@ -35,9 +35,9 @@ const auth = new AuthModule(
 
     /* Token is validated against the following values: */
     // Audience is the same as the client ID because, relative to the Office host, the add-in is the "resource".
-    /* audience */ '89b8276d-003c-47d3-b351-03260447349e',
+    /* audience */ '{audience GUID}', 
     /* scopes */ ['access_as_user'],
-    /* issuer */ 'https://login.microsoftonline.com/efc2f964-8ba9-4fac-b971-1c1da35acbcd/v2.0',
+    /* issuer */ 'https://login.microsoftonline.com/{O365 tenant GUID}/v2.0',
 );
 
 /* A promisified express handler to catch errors easily */
