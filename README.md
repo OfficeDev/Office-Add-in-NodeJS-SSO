@@ -37,6 +37,8 @@ To work with the Completed versions, follow all the procedures, except the secti
 
 _Completed Multitenant_ version allows you to use SSO with any microsoft account regardless of its domain.
 
+> **IMPORTANT**: Regardless of which version you use, you will need to trust a certificate for the localhost. Follow the instructions [here](https://github.com/OfficeDev/generator-office/blob/master/src/docs/ssl.md), except that the `certs` folders for each of the versions in this repo is in the `/src` folder, not the root folder.
+
 ## Questions and comments
 
 We'd love to get your feedback about this sample. You can send your feedback to us in the *Issues* section of this repository.
