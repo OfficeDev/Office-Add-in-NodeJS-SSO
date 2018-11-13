@@ -10,7 +10,7 @@ Office.initialize = function (reason) {
     // After the DOM is loaded, app-specific code can run.
     // Add any initialization logic to this function.
 	 $("#getGraphAccessTokenButton").click(function () {
-                getOneDriveItems();
+                getOneDriveFiles();
             });
     });
 }
