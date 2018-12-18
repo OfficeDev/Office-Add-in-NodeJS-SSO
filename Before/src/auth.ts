@@ -7,7 +7,7 @@
 import 'isomorphic-fetch';
 import { Request } from 'express';
 import * as jsonwebtoken from 'jsonwebtoken';
-import * as form from 'form-urlencoded';
+import form from 'form-urlencoded';
 import * as moment from 'moment';
 import { ServerStorage } from './server-storage';
 import { ServerError, UnauthorizedError } from './errors';
@@ -108,7 +108,12 @@ ${signing_key}
 
             const [schema, jwt] = authorization.split(' ');
             const decoded = jsonwebtoken.decode(jwt, { complete: true });
-            const { header, payload } = decoded;
+            
+            /* Check return decoded type is as expected */
+            if (!((<{[key:string] :any;}>decoded).header !== undefined)) throw new UnauthorizedError('Unable to verify JWT');
+           
+            const header = (<{[key:string] :any;}>decoded).header;
+            const payload = (<{[key:string] :any;}>decoded).payload;
 
             /* Ensure other parameters of the payload are consistent. */
             for (const assertion of Object.keys(assertions)) {
