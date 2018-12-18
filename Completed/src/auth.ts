@@ -108,7 +108,9 @@ ${signing_key}
 
             const [schema, jwt] = authorization.split(' ');
             const decoded = jsonwebtoken.decode(jwt, { complete: true });
-            if ((<{[key:string] :any;}>decoded).header !== undefined) throw new UnauthorizedError('Unable to verify JWT');
+
+            /* Check return decoded type is as expected */
+            if (!((<{[key:string] :any;}>decoded).header !== undefined)) throw new UnauthorizedError('Unable to verify JWT');
            
             const header = (<{[key:string] :any;}>decoded).header;
             const payload = (<{[key:string] :any;}>decoded).payload;
