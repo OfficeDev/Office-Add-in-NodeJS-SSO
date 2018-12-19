@@ -7,7 +7,7 @@
 import 'isomorphic-fetch';
 import { Request } from 'express';
 import * as jsonwebtoken from 'jsonwebtoken';
-import * as form from 'form-urlencoded';
+import form from 'form-urlencoded';
 import * as moment from 'moment';
 import { ServerStorage } from './server-storage';
 import { ServerError, UnauthorizedError } from './errors';
@@ -108,7 +108,12 @@ ${signing_key}
 
             const [schema, jwt] = authorization.split(' ');
             const decoded = jsonwebtoken.decode(jwt, { complete: true });
-            const { header, payload } = decoded;
+
+            /* Check return decoded type is as expected */
+            if (!((<{[key:string] :any;}>decoded).header !== undefined)) throw new UnauthorizedError('Unable to verify JWT');
+           
+            const header = (<{[key:string] :any;}>decoded).header;
+            const payload = (<{[key:string] :any;}>decoded).payload;
 
             /* Ensure other parameters of the payload are consistent. */
             for (const assertion of Object.keys(assertions)) {
@@ -144,7 +149,7 @@ ${signing_key}
         // or doesn't exist yet (e.g., the add-in is being run for the first time on this computer). Else
         // get it from storage.
         const resourceTokenExpirationTime = ServerStorage.retrieve('ResourceTokenExpiresAt');
-        if (moment().add(1, 'minute').diff(resourceTokenExpirationTime) < 1 ) {
+        if (moment().add(1, 'minute').diff(await resourceTokenExpirationTime) < 1 ) {
             return ServerStorage.retrieve('ResourceToken');
         } else if (resource) {
             return this.exchangeForToken(jwt, scopes, resource);

@@ -31,11 +31,11 @@ var timesMSGraphErrorReceived = false;
 function getOneDriveFiles() {
     timesGetOneDriveFilesHasRun++;
 
-	// Ask the Office host for an access token to the add-in. If the user is 
+    // Ask the Office host for an access token to the add-in. If the user is 
     // not signed in, s/he is prompted to sign in.
     triedWithoutForceConsent = true;
     getDataWithToken({ forceConsent: false });
-}	
+}
 
 function getDataWithToken(options) {
     Office.context.auth.getAccessTokenAsync(options,
@@ -59,12 +59,12 @@ function getData(relativeUrl, accessToken) {
         headers: { "Authorization": "Bearer " + accessToken },
         type: "GET"
     })
-    .done(function (result) {
-        showResult(result);
-    })
-    .fail(function (result) {
-        handleServerSideErrors(result);
-    }); 
+        .done(function (result) {
+            showResult(result);
+        })
+        .fail(function (result) {
+            handleServerSideErrors(result);
+        });
 }
 
 function handleServerSideErrors(result) {
@@ -78,7 +78,7 @@ function handleServerSideErrors(result) {
     // AAD to prompt the user for all required forms of authentication.
     if (result.responseJSON.error.innerError
         && result.responseJSON.error.innerError.error_codes
-        && result.responseJSON.error.innerError.error_codes[0] === 50076){
+        && result.responseJSON.error.innerError.error_codes[0] === 50076) {
         getDataWithToken({ authChallenge: result.responseJSON.error.innerError.claims });
     }
 
@@ -86,8 +86,8 @@ function handleServerSideErrors(result) {
     // the add-in's web service relays the 65001 error. Try to get the token
     // again with the forceConsent option.
     else if (result.responseJSON.error.innerError
-            && result.responseJSON.error.innerError.error_codes
-            && result.responseJSON.error.innerError.error_codes[0] === 65001){
+        && result.responseJSON.error.innerError.error_codes
+        && result.responseJSON.error.innerError.error_codes[0] === 65001) {
 
         getDataWithToken({ forceConsent: true });
     }
@@ -95,8 +95,8 @@ function handleServerSideErrors(result) {
     // If the add-in asks for an invalid scope (permission),
     // the add-in's web service relays the 70011 error. 
     else if (result.responseJSON.error.innerError
-            && result.responseJSON.error.innerError.error_codes
-            && result.responseJSON.error.innerError.error_codes[0] === 70011){
+        && result.responseJSON.error.innerError.error_codes
+        && result.responseJSON.error.innerError.error_codes[0] === 70011) {
         showResult(['The add-in is asking for a type of permission that is not recognized.']);
     }
 
@@ -104,7 +104,7 @@ function handleServerSideErrors(result) {
     // the client-side sends to the add-in's web service, it will respond with an error 
     // of the form "UnauthorizedError: JWT assertion failed: scp was ... ; expected access_as_user".
     else if (result.responseJSON.error.name
-            && result.responseJSON.error.name.indexOf('expected access_as_user') !== -1){
+        && result.responseJSON.error.name.indexOf('expected access_as_user') !== -1) {
         showResult(['Microsoft Office does not have permission to get Microsoft Graph data on behalf of the current user.']);
     }
 
@@ -112,7 +112,7 @@ function handleServerSideErrors(result) {
     // invalid, a 401 error is sent. For any such error, start the whole process over,
     // but no more than once.
     else if (result.responseJSON.error.name
-             && result.responseJSON.error.name.indexOf('Microsoft Graph error') !== -1) {
+        && result.responseJSON.error.name.indexOf('Microsoft Graph error') !== -1) {
         if (!timesMSGraphErrorReceived) {
             timesMSGraphErrorReceived = true;
             timesGetOneDriveFilesHasRun = 0;
@@ -120,10 +120,10 @@ function handleServerSideErrors(result) {
             getOneDriveFiles();
         } else {
             logError(result);
-        }        
+        }
     }
     // Any other error.  
-    else  {
+    else {
         logError(result);
     }
 }
@@ -146,16 +146,19 @@ function handleClientSideErrors(result) {
                 showResult(['Your sign-in or consent was aborted before completion. Please try that operation again.']);
             } else {
                 logError(result);
-            }          
-            break;        
-        case 13003: 
+            }
+            break;
+        case 13003:
             // The user is logged in with an account that is neither work or school, nor Micrososoft Account.
             showResult(['Please sign out of Office and sign in again with a work or school account, or Microsoft Account. Other kinds of accounts, like corporate domain accounts do not work.']);
-            break;        
+            break;
+        case 13005:
+            getDataWithToken({ forceConsent: true });
+            break;
         case 13006:
             // Unspecified error in the Office host.
             showResult(['Please save your work, sign out of Office, close all Office applications, and restart this Office application.']);
-            break;        
+            break;
         case 13007:
             // The Office host cannot get an access token to the add-ins web service/application.
             showResult(['That operation cannot be done at this time. Please try again later.']);
@@ -180,13 +183,13 @@ function handleClientSideErrors(result) {
 }
 
 // Displays the data, assumed to be an array.
-function showResult(data) {	
-	for (var i = 0; i < data.length; i++) {
-		$('#file-list').append('<li class="ms-ListItem">' + 
-		'<span class="ms-ListItem-secondaryText">' + 
-		'<span class="ms-fontColor-themePrimary">' + data[i] + '</span>' +
-		'</span></li>');
-	}
+function showResult(data) {
+    for (var i = 0; i < data.length; i++) {
+        $('#file-list').append('<li class="ms-ListItem">' +
+            '<span class="ms-ListItem-secondaryText">' +
+            '<span class="ms-fontColor-themePrimary">' + data[i] + '</span>' +
+            '</span></li>');
+    }
 }
 
 function logError(result) {
@@ -208,5 +211,5 @@ function logError(result) {
     }
     if (result.responseJSON.error.name) {
         console.log("Code: " + result.responseJSON.error.name);
-    }       
+    }
 }
