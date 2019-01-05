@@ -149,7 +149,7 @@ function handleClientSideErrors(result) {
             }
             break;
         case 13003:
-            // The user is logged in with an account that is neither work or school, nor Micrososoft Account.
+            // The user is logged in with an account that is neither work or school, nor Microsoft Account.
             showResult(['Please sign out of Office and sign in again with a work or school account, or Microsoft Account. Other kinds of accounts, like corporate domain accounts do not work.']);
             break;
         case 13005:
@@ -164,7 +164,7 @@ function handleClientSideErrors(result) {
             showResult(['That operation cannot be done at this time. Please try again later.']);
             break;
         case 13008:
-            // The user tiggered an operation that calls getAccessTokenAsync before a previous call of it completed.
+            // The user triggered an operation that calls getAccessTokenAsync before a previous call of it completed.
             showResult(['Please try that operation again after the current operation has finished.']);
             break;
         case 13009:
@@ -184,6 +184,15 @@ function handleClientSideErrors(result) {
 
 // Displays the data, assumed to be an array.
 function showResult(data) {
+
+    // Note that in this sample, the data parameter is an array of OneDrive file/folder
+    // names. Encoding/sanitizing to protect against Cross-site scripting (XSS) attacks
+    // is not needed because there are restrictions on what characters can be used in 
+    // OneDrive file and folder names. These restrictions do not necessarily apply 
+    // to other kinds of Microsoft Graph data. If you copy this function in a production
+    // add-in, be sure to protect against the possibility that data from a data source 
+    // contains a Cross-site scripting string by encoding or sanitizing the data before 
+    // it is inserted into an HTML page.
     for (var i = 0; i < data.length; i++) {
         $('#file-list').append('<li class="ms-ListItem">' +
             '<span class="ms-ListItem-secondaryText">' +

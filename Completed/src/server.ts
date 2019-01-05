@@ -108,11 +108,15 @@ app.get('/api/values', handler(async (req, res) => {
     await auth.initialize();
     const { jwt } = auth.verifyJWT(req, { scp: 'access_as_user' });
 
-    // We don't pass a resource parameter becuase the token endpoint is Azure AD V2.
+    // 1. We don't pass a resource parameter because the token endpoint is Azure AD V2.
+    // 2. Always ask for the minimal permissions that the application needs.
     const graphToken = await auth.acquireTokenOnBehalfOf(jwt, ['Files.Read.All']);
 
     // Minimize the data that must come from MS Graph by specifying only the property we need ("name")
     // and only the top 3 folder or file names.
+    // Note that the last parameter, for queryParamsSegment, is hardcoded. If you reuse this code in
+    // a production add-in and any part of queryParamsSegment comes from user input, be sure that it is
+    // sanitized so that it cannot be used in a Response header injection attack.
     const graphData = await MSGraphHelper.getGraphData(graphToken, "/me/drive/root/children", "?$select=name&$top=3");
 
     // If Microsoft Graph returns an error, such as invalid or expired token,

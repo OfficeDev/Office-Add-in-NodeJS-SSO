@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See full license in the root of the repo.
 
 /* 
-    This file provides the provides functionality to get data from OData-compliant endppoints. 
+    This file provides the provides functionality to get data from OData-compliant endpoints. 
 */
 
 import * as https from 'https';
@@ -12,6 +12,9 @@ export class ODataHelper {
                    domain: string, 
                    apiURLsegment: string, 
                    apiVersion?: string, 
+                   // If any part of queryParamsSegment comes from user input,
+                   // be sure that it is sanitized so that it cannot be used in
+                   // a Response header injection attack.
                    queryParamsSegment?: string) {
 
         return new Promise<any>((resolve, reject) => {
