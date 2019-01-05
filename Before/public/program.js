@@ -17,7 +17,16 @@ Office.initialize = function (reason) {
 
 
 // Displays the data, assumed to be an array.
-function showResult(data) {	
+function showResult(data) {
+
+    // Note that in this sample, the data parameter is an array of OneDrive file/folder
+    // names. Encoding/sanitizing to protect against Cross-site scripting (XSS) attacks
+    // is not needed because there are restrictions on what characters can be used in 
+    // OneDrive file and folder names. These restrictions do not necessarily apply 
+    // to other kinds of Microsoft Graph data. If you copy this function in a production
+    // add-in, be sure to protect against the possibility that data from a data source 
+    // contains a Cross-site scripting string by encoding or sanitizing the data before 
+    // it is inserted into an HTML page.
 	for (var i = 0; i < data.length; i++) {
 		$('#file-list').append('<li class="ms-ListItem">' + 
 		'<span class="ms-ListItem-secondaryText">' + 

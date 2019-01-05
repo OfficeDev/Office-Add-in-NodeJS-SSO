@@ -12,6 +12,9 @@ export class ODataHelper {
                    domain: string, 
                    apiURLsegment: string, 
                    apiVersion?: string, 
+                   // If any part of queryParamsSegment comes from user input,
+                   // be sure that it is sanitized so that it cannot be used in
+                   // a Response header injection attack.
                    queryParamsSegment?: string) {
 
         return new Promise<any>((resolve, reject) => {
