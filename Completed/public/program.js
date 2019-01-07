@@ -189,16 +189,14 @@ function showResult(data) {
     // names. Encoding/sanitizing to protect against Cross-site scripting (XSS) attacks
     // is not needed because there are restrictions on what characters can be used in 
     // OneDrive file and folder names. These restrictions do not necessarily apply 
-    // to other kinds of Microsoft Graph data. If you copy this function in a production
-    // add-in, be sure to protect against the possibility that data from a data source 
-    // contains a Cross-site scripting string by encoding or sanitizing the data before 
-    // it is inserted into an HTML page.
-    for (var i = 0; i < data.length; i++) {
-        $('#file-list').append('<li class="ms-ListItem">' +
-            '<span class="ms-ListItem-secondaryText">' +
-            '<span class="ms-fontColor-themePrimary">' + data[i] + '</span>' +
-            '</span></li>');
-    }
+    // to other kinds of data including other kinds of Microsoft Graph data. So, to 
+    // make this method safely reusable in other contexts, it uses the jQuery text() 
+    // method which automatically encodes values that are passed to it.
+	$.each(data, function (i) {
+        var li = $('<li/>').addClass('ms-ListItem').appendTo($('#file-list'));
+        var outerSpan = $('<span/>').addClass('ms-ListItem-secondaryText').appendTo(li);
+        $('<span/>').addClass('ms-fontColor-themePrimary').appendTo(outerSpan).text(data[i]);
+      });
 }
 
 function logError(result) {

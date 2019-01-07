@@ -29,12 +29,11 @@ The `getAccessTokenAsync` API in Office.js enables users who are signed into Off
 
 ## Deviations from Best Practices
 
-The samples in this repo are narrowly focused on demonstrating the use of the SSO APIs. To keep it simple, some best practices are not followed, including best practices in web application security. <span style="color:red">You should not use any of these samples as the starting point of a production add-in unless you are prepared to make substantial changes.</span> We recommend that you begin a production add-in by using one of the Office Add-in projects in Visual Studio, or by generating a new project with the [Yeoman Generator for Office Add-ins](https://github.com/OfficeDev/generator-office).
+The samples in this repo are narrowly focused on demonstrating the use of the SSO APIs. To keep it simple, some best practices are not followed, including best practices in web application security. *You should not use any of these samples as the starting point of a production add-in unless you are prepared to make substantial changes.* We recommend that you begin a production add-in by using one of the Office Add-in projects in Visual Studio, or by generating a new project with the [Yeoman Generator for Office Add-ins](https://github.com/OfficeDev/generator-office).
 
 _Some_ of the points to keep in mind about these samples:
 
 * Do not ship reusable certs as these samples do. Produce your own certs for your server and make sure they are not web-accessible.
-* The data that the samples render on the home page &mdash; file and folder names from OneDrive &mdash; is not encoded against Cross-site Scripting (XSS) attacks. In the context of this sample, encoding is not needed because there are restrictions on what characters can be used in OneDrive file and folder names. These restrictions do not necessarily apply to other kinds of Microsoft Graph data. In general, a production add-in should protect against the possibility that data from a data source contains an XSS string by encoding or sanitizing the data before it is inserted into an HTML page.
 * The samples send a hardcoded query parameter on the URL for the Microsoft Graph REST API. If you modify this code in a production add-in and any part of query parameter comes from user input, be sure that it is sanitized so that it cannot be used in a Response header injection attack.
 
 ## To use the project
