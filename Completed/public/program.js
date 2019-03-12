@@ -153,6 +153,8 @@ function handleClientSideErrors(result) {
             showResult(['Please sign out of Office and sign in again with a work or school account, or Microsoft Account. Other kinds of accounts, like corporate domain accounts do not work.']);
             break;
         case 13005:
+            // The Office host has not been authorized to the add-in's web service
+            // or the user has not granted the service permission to their `profile`.
             getDataWithToken({ forceConsent: true });
             break;
         case 13006:
