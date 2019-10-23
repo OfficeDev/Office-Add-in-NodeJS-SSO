@@ -62,35 +62,3 @@ function getGraphToken(bootstrapToken) {
 	});
 }
 
-// function forceConsent() {
-//     Office.context.auth.getAccessTokenAsync({forceConsent:true}, function (result) {
-//         if (result.status === "succeeded") {
-//             // Use this token to call Web API
-//             var ssoToken = result.value;
-//             $('#ssoToken').val(result.value);
-//         } else {
-//             if (result.error.code === 13003) {
-//                 // SSO is not supported for domain user accounts, only
-//                 // work or school (Office 365) or Microsoft Account IDs.
-//             } else {
-//                 // Handle error
-//             }
-//         }
-//     });
-// }
-
-
-
-// function claimsRequest() {
-//     var claimsStr = JSON.parse($("#graphToken").val()).claims;
-//     Office.context.auth.getAccessTokenAsync({authChallenge: claimsStr}, function (result) {
-//         if (result.status === "succeeded") {
-//             $('#ssoToken').val(result.value);
-//         } else {
-//             $('#ssoToken').val(JSON.stringify(result));
-//         }
-//     });
-// }
-
-
-
