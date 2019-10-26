@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "start": "tsc && node ./bin/www"
   },
   "dependencies": {
     "@types/jquery": "^3.3.31",
@@ -20,5 +22,8 @@
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.0",
     "pug": "2.0.0-beta11"
+  },
+  "devDependencies": {
+    "typescript": "^3.6.4"
   }
 }

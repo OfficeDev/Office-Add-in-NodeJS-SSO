@@ -20,7 +20,7 @@ async function getGraphData() {
             // Microsoft Graph requires an additional form of authentication. Have the Office host 
             // get a new token using the Claims string, which tells AAD to prompt the user for all 
             // required forms of authentication.
-            mfaBootstrapToken = await OfficeRuntime.auth.getAccessToken({ authChallenge: exchangeResponse.claims });
+            let mfaBootstrapToken = await OfficeRuntime.auth.getAccessToken({ authChallenge: exchangeResponse.claims });
             exchangeResponse = await getGraphToken(mfaBootstrapToken);
         }
         
@@ -100,7 +100,7 @@ function handleAADErrors(exchangeResponse) {
     // with "The provided value for the 'assertion' is not valid. The assertion has expired."
     // Retry the call of getAccessToken (no more than once). This time Office will return a 
     // new unexpired bootstrap token. 
-    if ((exchangeResponse.error_description === "The provided value for the 'assertion' is not valid. The assertion has expired."
+    if ((exchangeResponse.error_description === "The provided value for the 'assertion' is not valid. The assertion has expired.")
         &&
         (retryGetAccessToken <= 0)) 
     {
