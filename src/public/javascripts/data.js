@@ -13,18 +13,16 @@ function makeGraphApiCall(accessToken) {
 
         writeFileNamesToOfficeDocument(response)
         .then(function () { 
-            $('.welcome-body').hide();
-            $('#message-area').show();   
-            $('#message-area').text("Your data has been added to the document."); 
+            showMessage("Your data has been added to the document."); 
         })
         .catch(function (error) {
-            $('.welcome-body').hide();
-            $('#message-area').show();     
-            $('#message-area').text(JSON.stringify(error.toString()));
+            // The error from writeFileNamesToOfficeDocument will begin 
+            // "Unable to add filenames to document."
+            showMessage(error);
         });
     })
-    .fail(function (result) {
-        console.log("result " + result);
-		//handleServerSideErrors(result);
+    .fail(function (errorResult) {
+        // This error is relayed from `app.get('/getuserdata` in app.js file.
+        showMessage("Error from Microsoft Graph: " + JSON.stringify(errorResult));
 	});
 }

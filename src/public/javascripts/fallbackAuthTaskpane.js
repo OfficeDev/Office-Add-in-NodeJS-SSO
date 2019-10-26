@@ -29,9 +29,7 @@ function processMessage(arg) {
         else {
             // Something went wrong with authentication or the authorization of the web application.
             loginDialog.close();
-            $('.welcome-body').hide();
-            $('#message-area').show();     
-            $('#message-area').text(JSON.stringify(error.toString()));
+            showMessage(JSON.stringify(error.toString()));
         }
 }
 

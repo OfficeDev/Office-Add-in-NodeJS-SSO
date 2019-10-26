@@ -64,12 +64,12 @@ app.get('/getuserdata', async function(req, res, next) {
 
   // If Microsoft Graph returns an error, such as invalid or expired token,
   // there will be a code property in the returned object set to a HTTP status (e.g. 401).
-  // Relay it to the client.
+  // Relay it to the client. It will caught in the fail callback of `makeGraphApiCall`.
   if (graphData.code) {
       next(createError(graphData.code, "Microsoft Graph error " + JSON.stringify(graphData)));
-
   }
-  else {
+  else 
+  {
     // MS Graph data includes OData metadata and eTags that we don't need.
     // Send only what is actually needed to the client: the item names.
     const itemNames = [];
