@@ -68,7 +68,7 @@ Version  | Date | Comments
 1.0 | September 15, 2017 | Added support for 2FA.
 1.0 | December 8, 2017 | Added extensive error handling.
 1.0 | January 7, 2019 | Added information about web application security practices.
-1.1 | October 26, 2019 | Added Display Dialog API fall back.
+2.0 | October 26, 2019 | Changed to use new API and added Display Dialog API fallback.
 
 ## Disclaimer
 
@@ -83,13 +83,12 @@ Version  | Date | Comments
 1. Register your application using the [Azure Management Portal](https://manage.windowsazure.com). **Log in with the identity of an administrator of your Office 365 tenancy to ensure that you are working in an Azure Active Directory that is associated with that tenancy.** To learn how to register your application, see [Register an application with the Microsoft Identity Platform](https://docs.microsoft.com/graph/auth-register-app-v2). Use the following settings:
 
  - NAME: Office-Add-in-ASPNET-SSO
- - REDIRCT URI: https://localhost:44355/AzureADAuth/Authorize
+ - REDIRCT URI: https://localhost:44355/dialog.html
  - SUPPORTED ACCOUNT TYPES: "Accounts in any organizational directory and personal Microsoft accounts (e.g. Skype, Xbox, Outlook.com)"
  - IMPLICIT GRANT: Enable **both** options: **Access tokens** and **ID tokens**
  - API PERMISSIONS (Delegated permissions, not Application permissions):
 
      - **Files.Read.All**
-     - **User.Read**
      - **profile**
 
   > Note: After you register your application, copy the **Application (client) ID** and the **Directory (tenant) ID** on the **Overview** blade of the App Registration in the Azure Management Portal. When you create the client secret on the **Certificates & secrets** blade, copy it too. 
@@ -168,8 +167,8 @@ Version  | Date | Comments
 1. Open a command prompt in the root of the root of the `\src` folder. 
 2. Run the command `npm start`. 
 3. You need to sideload the add-in into an Office application (Excel, Word, or PowerPoint) to test it. The instructions depend on your platform. There are links to instructions at [Sideload an Office Add-in for Testing](https://docs.microsoft.com/en-us/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing).
-7. In the Office application, on the **Home** ribbon, select the **Show Add-in** in the **SSO Node.js** group to open the task pane add-in.
-8. Click the **Get OneDrive File Names** button. If you are logged into Office with either a Work or School (Office 365) account or Microsoft Account, and SSO is working as expected, the first 10 file and folder names in your OneDrive for Business are displayed on the task pane. (It may take as much as 15 seconds the first time.) If you are not logged in, or you are in a scenario that does not support SSO, or SSO is not working for any reason, you will be prompted to log in. After you log in, the file and folder names appear.
+7. In the Office application, on the **Home** ribbon, select the **Show Add-in** button in the **SSO Node.js** group to open the task pane add-in.
+8. Click the **Get OneDrive File Names** button. If you are logged into Office with either a Work or School (Office 365) account or Microsoft Account, and SSO is working as expected, the first 10 file and folder names in your OneDrive for Business are inserted into the document. (It may take as much as 15 seconds the first time.) If you are not logged in, or you are in a scenario that does not support SSO, or SSO is not working for any reason, you will be prompted to log in. After you log in, the file and folder names appear.
 
 ## Security note
 
