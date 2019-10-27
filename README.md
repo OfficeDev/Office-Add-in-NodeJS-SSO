@@ -83,7 +83,7 @@ Version  | Date | Comments
 1. Register your application using the [Azure Management Portal](https://manage.windowsazure.com). **Log in with the identity of an administrator of your Office 365 tenancy to ensure that you are working in an Azure Active Directory that is associated with that tenancy.** To learn how to register your application, see [Register an application with the Microsoft Identity Platform](https://docs.microsoft.com/graph/auth-register-app-v2). Use the following settings:
 
  - NAME: Office-Add-in-ASPNET-SSO
- - REDIRCT URI: https://localhost:44355/AzureADAuth/Authorize
+ - REDIRCT URI: https://localhost:44355/dialog.html
  - SUPPORTED ACCOUNT TYPES: "Accounts in any organizational directory and personal Microsoft accounts (e.g. Skype, Xbox, Outlook.com)"
  - IMPLICIT GRANT: Enable **both** options: **Access tokens** and **ID tokens**
  - API PERMISSIONS (Delegated permissions, not Application permissions):
