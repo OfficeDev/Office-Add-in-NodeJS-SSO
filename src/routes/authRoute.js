@@ -5,7 +5,6 @@
  */
 
 var express = require('express');
-// var jsonwebtoken = require('jsonwebtoken'); //TODO: validate bootstrap token
 var router = express.Router();
 var fetch = require('node-fetch');
 var form = require('form-urlencoded').default;
@@ -20,8 +19,6 @@ router.get('/', async function(req, res, next) {
   } 
   else {
     const [schema, jwt] = authorization.split(' ');
-    // TODO: validate bootstrap token
-    //const decoded = jsonwebtoken.decode(jwt, { complete: true });
     const formParams = {
       client_id: process.env.CLIENT_ID,
       client_secret: process.env.CLIENT_SECRET,
