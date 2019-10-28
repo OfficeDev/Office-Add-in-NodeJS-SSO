@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('ssoapp:server');
 var https = require('https');
 var fs = require('fs');
+var devCerts = require('office-addin-dev-certs');
 
 /**
  * Get port from environment and store in Express.
@@ -19,17 +20,7 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-var key = fs.readFileSync('certs/server.key');
-var cert = fs.readFileSync('certs/server.cert');
-var server = https.createServer({key: key, cert: cert}, app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+startServer(app, port);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -78,15 +69,12 @@ function onError(error) {
       throw error;
   }
 }
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+async function startServer(app, port) {
+  if (process.env.NODE_ENV === 'development') {
+      const options = await devCerts.getHttpsServerOptions();
+      https.createServer(options, app).listen(port, () => console.log(`Server running on ${port}`));
+  }
+  else {
+      app.listen(process.env.port || 1337, () => console.log(`Server listening on port 1337`));
+  }
 }

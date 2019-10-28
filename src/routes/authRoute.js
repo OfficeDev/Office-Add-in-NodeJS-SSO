@@ -6,9 +6,11 @@
 
 var express = require('express');
 var router = express.Router();
+const defaults = require('./../configure/defaults');
 var fetch = require('node-fetch');
 var form = require('form-urlencoded').default;
-
+const manifest = require('office-addin-manifest');
+var ssoAppData = require('./../configure/ssoAppDataSetttings');
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
@@ -19,9 +21,11 @@ router.get('/', async function(req, res, next) {
   } 
   else {
     const [schema, jwt] = authorization.split(' ');
+    const appSecret = await getSecret();
+    console.log(appSecret);
     const formParams = {
       client_id: process.env.CLIENT_ID,
-      client_secret: process.env.CLIENT_SECRET,
+      client_secret: appSecret,
       grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
       assertion: jwt,
       requested_token_use: 'on_behalf_of',
@@ -46,5 +50,11 @@ router.get('/', async function(req, res, next) {
 
   }
 });
+
+async function getSecret() {
+  const manifestInfo = await manifest.readManifestFile(defaults.manifestPath);
+  const appSecret = ssoAppData.getSecretFromCredentialStore(manifestInfo.displayName);
+  return appSecret;
+}
 
 module.exports = router;
