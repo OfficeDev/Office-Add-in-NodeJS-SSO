@@ -15,7 +15,7 @@
 
     const msalConfig = {
         auth: {
-            clientId: "4791d036-d035-45ea-8b0b-275f43cc4824", //This is your client ID
+            clientId: "$application_GUID here$", //This is your client ID
             authority: "https://login.microsoftonline.com/common", 
             redirectURI: "https://localhost:44355/dialog.html", 
             navigateToLoginRequestUrl: false,
