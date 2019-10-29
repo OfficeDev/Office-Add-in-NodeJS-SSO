@@ -145,7 +145,9 @@ Version  | Date | Comments
     NODE_ENV=development
     ```
 
-6. In the add-in project, open the add-in manifest file “manifest\manifest_local.xml” and then scroll to the bottom of the file. Just above the end `</VersionOverrides>` tag, you'll find the following markup:
+6. Open the \src\public\javascripts\fallbackAuthDialog.js file. In the msalconfig declaration, replace the placeholder $application_GUID here$ with the Application ID that you copied when you registered your add-in. The value should be in quotation marks.
+
+7. In the add-in project, open the add-in manifest file “manifest\manifest_local.xml” and then scroll to the bottom of the file. Just above the end `</VersionOverrides>` tag, you'll find the following markup:
 
     ```
     <WebApplicationInfo>
