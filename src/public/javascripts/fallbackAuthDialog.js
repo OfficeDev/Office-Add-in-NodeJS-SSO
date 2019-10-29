@@ -8,28 +8,43 @@
         if (Office.context.ui.messageParent)
         {
             userAgentApp.handleRedirectCallback(authCallback);
-           // userAgentApp.loginRedirect(requestObj);
-            userAgentApp.acquireTokenRedirect(requestObj);
+
+            // The very first time the add-in runs on a developer's computer, msal.js hasn't yet
+            // stored login data in localStorage. So a direct call of acquireTokenRedirect 
+            // causes the error "User login is required". Once the user is logged in successfully
+            // the first time, msal data in localStorage will prevent this error from ever hap-
+            // pening again; but the error must be blocked here, so that the user can login 
+            // successfully the first time. To do that, call loginRedirect first instead of 
+            // acquireTokenRedirect.
+            if (localStorage.getItem("loggedIn") === "yes") {
+                userAgentApp.acquireTokenRedirect(requestObj);
+            }
+            else {
+                // This will login the user and then the (response.tokenType === "id_token")
+                // path in authCallback below will run, which sets localStorage.loggedIn to "yes"
+                // and then the dialog is redirected back to this script, so the 
+                // acquireTokenRedirect above runs.
+                userAgentApp.loginRedirect(requestObj);
+            }
         }
      };
 
     const msalConfig = {
         auth: {
-            clientId: "4791d036-d035-45ea-8b0b-275f43cc4824", //This is your client ID
+            clientId: "3e3f53bd-7e06-4a3e-ae53-cc84e98f7bec", //This is your client ID
             authority: "https://login.microsoftonline.com/common", 
             redirectURI: "https://localhost:44355/dialog.html", 
             navigateToLoginRequestUrl: false,
             response_type: "access_token"
         },
         cache: {
-            cacheLocation: 'localStorage', // Needed to avoid "user login is required" error.
+            cacheLocation: 'localStorage', // Needed to avoid "User login is required" error.
             storeAuthStateInCookie: true  // Recommended to avoid certain IE/Edge issues.
         }
     };
 
     var requestObj = {
-        scopes: ["https://graph.microsoft.com/User.Read", 
-        "https://graph.microsoft.com/Files.Read.All"]
+        scopes: ["https://graph.microsoft.com/Files.Read.All"]
     };
 
     const userAgentApp = new Msal.UserAgentApplication(msalConfig);
@@ -41,6 +56,7 @@
         } else {
             if (response.tokenType === "id_token") {
                 console.log(response.idToken.rawIdToken);
+                localStorage.setItem("loggedIn", "yes");
             } else {
                 console.log("token type is:" + response.tokenType);
                 Office.context.ui.messageParent( JSON.stringify({ status: 'success', result : response.accessToken }) );               
