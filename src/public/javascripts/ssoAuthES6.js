@@ -14,7 +14,7 @@ let retryGetAccessToken = 0;
 
 async function getGraphData() {
     try {
-        let bootstrapToken = await OfficeRuntime.auth.getAccessToken({ allowSignInPrompt: true }); 
+        let bootstrapToken = await OfficeRuntime.auth.getAccessToken({ allowSignInPrompt: true, forMSGraphAccess: true }); 
         let exchangeResponse = await getGraphToken(bootstrapToken);
         if (exchangeResponse.claims) {
             // Microsoft Graph requires an additional form of authentication. Have the Office host 
@@ -53,7 +53,7 @@ async function getGraphData() {
 
 async function getGraphToken(bootstrapToken) {
     let response = await $.ajax({type: "GET", 
-		url: "/auth",
+        url: "/auth",
         headers: {"Authorization": "Bearer " + bootstrapToken }, 
         cache: false
     });
