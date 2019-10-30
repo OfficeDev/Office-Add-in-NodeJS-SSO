@@ -12,7 +12,7 @@ Office.onReady(function(info) {
 
 let retryGetAccessToken = 0;
 
-function getGraphData() {
+async function getGraphData() {
     try {
         let bootstrapToken = await OfficeRuntime.auth.getAccessToken({ allowSignInPrompt: true, forMSGraphAccess: true }); 
         let exchangeResponse = await getGraphToken(bootstrapToken);
