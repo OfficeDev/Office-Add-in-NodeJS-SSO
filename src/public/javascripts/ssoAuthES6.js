@@ -27,7 +27,7 @@ async function getGraphData() {
         if (exchangeResponse.error) {
             // AAD errors are returned to the client with HTTP code 200, so they do not trigger
             // the catch block below.
-            handleAADErrors(exchangeResponse);            
+            handleAADErrors(exchangeResponse);
         } 
         else 
         {
@@ -100,8 +100,8 @@ function handleAADErrors(exchangeResponse) {
     // but expires by the time it is sent to AAD for exchange. AAD will respond
     // with "The provided value for the 'assertion' is not valid. The assertion has expired."
     // Retry the call of getAccessToken (no more than once). This time Office will return a 
-    // new unexpired bootstrap token. 
-    if ((exchangeResponse.error_description === "The provided value for the 'assertion' is not valid. The assertion has expired.")
+    // new unexpired bootstrap token.
+    if ((exchangeResponse.error_description.indexOf("AADSTS500133") !== -1)
         &&
         (retryGetAccessToken <= 0)) 
     {
