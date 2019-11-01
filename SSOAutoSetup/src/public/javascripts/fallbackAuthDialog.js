@@ -4,6 +4,12 @@
  * This file shows how to use MSAL.js to get an access token to Microsoft Graph an pass it to the task pane.
  */
 
+ // If the add-in is running in Internet Explorer, the code must add support 
+ // for Promises.
+ if (!window.Promise) {
+    window.Promise = Office.Promise;
+}
+
 Office.initialize = function () { 
     if (Office.context.ui.messageParent)
     {
