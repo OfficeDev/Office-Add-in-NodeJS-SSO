@@ -84,7 +84,7 @@ THIS README ASSUMES THAT YOU HAVE READ THE TOP LEVEL README IN THE ROOT OF THIS 
 
 2. Open a command prompt in the `\Complete` folder of the project and run the command `npm install`.
 
-3. Run the command `npm run install-dev-certs`.
+3. Run the command `npm run install-dev-certs`. Select **Yes** to the prompt to install the certificate.
 
 4. Open the `\Complete` folder in the cloned project in your IDE.
 
