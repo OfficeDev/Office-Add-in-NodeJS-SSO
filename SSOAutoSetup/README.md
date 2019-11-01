@@ -19,56 +19,7 @@ extensions:
 ---
 # Office Add-in that that supports Single Sign-on to Office, the Add-in, and Microsoft Graph
 
-The `getAccessToken` API in Office.js enables users who are signed into Office to get access to an AAD-protected add-in and to Microsoft Graph without needing to sign-in again. This sample is built on Node.JS, Express, and Microsoft Authentication Library for JavaScript (msal.js). 
-
- > Note: The `getAccessToken` API is in preview.
-
-## Features
-
-Integrating data from online service providers increases the value and adoption of your add-ins. This code sample shows you how to connect your add-in to Microsoft Graph. Use this code sample to:
-
-* Build an Add-in using Node.js, Express, msal.js, and Office.js. 
-* Connect to Microsoft Graph from an Office Add-in.
-* Use the OneDrive REST APIs from Microsoft Graph.
-* Use the Express routes and middleware to implement the OAuth 2.0 authorization framework in an add-in.
-* See how to use the Single Sign-on (SSO) API.
-* See how an add-in can fall back to an interactive sign-in in scenarios where SSO is not available.
-* Use the msal.js library to implement a fallback authentication/authorization system that is invoked when Office SSO is not available.
-* Show a dialog using the Office UI namespace when Office SSO is not available.
-* Use add-in commands in an add-in.
-
-
-## Applies to
-
--  Excel on Windows (subscription)
--  PowerPoint on Windows (subscription)
--  Word on Windows (subscription)
-
-## Prerequisites
-
-To run this code sample, the following are required.
-
-* A code editor. We recommend Visual Studio Code which was used to create the sample.
-* An Office 365 account which you can get by joining the [Office 365 Developer Program](https://aka.ms/devprogramsignup) that includes a free 1 year subscription to Office 365. During the preview phase, the SSO requires Office 365 (the subscription version of Office, also called “Click to Run”). You should use the latest monthly version and build from the Insiders channel. You need to be an Office Insider to get this version. For more information, see [Be an Office Insider](https://products.office.com/office-insider?tab=tab-1). 
-    > Note: When a build graduates to the production semi-annual channel, support for preview features, including SSO, is turned off for that build.
-* At least a few files and folders stored on OneDrive for Business in your Office 365 subscription.
-* A Microsoft Azure Tenant. This add-in requires Azure Active Directiory (AD). Azure AD provides identity services that applications use for authentication and authorization. A trial subscription can be acquired here: [Microsoft Azure](https://account.windowsazure.com/SignUp).
-
-## Solution
-
-Solution | Author(s)
----------|----------
-Office Add-in Microsoft Graph ASP.NET | Microsoft
-
-## Version history
-
-Version  | Date | Comments
----------| -----| --------
-1.0 | May 10, 2017| Initial release
-1.0 | September 15, 2017 | Added support for 2FA.
-1.0 | December 8, 2017 | Added extensive error handling.
-1.0 | January 7, 2019 | Added information about web application security practices.
-2.0 | October 26, 2019 | Changed to use new API and added Display Dialog API fallback.
+THIS README ASSUMES THAT YOU HAVE READ THE TOP LEVEL README IN THE ROOT OF THIS REPO. IT CONTAINS IMPORTANT INFORMATION ABOUT THE SAMPLES, **INCLUDING PREREQUISITES**.
 
 ## Disclaimer
 
@@ -79,11 +30,11 @@ Version  | Date | Comments
 ## To use the project
 
 ### Register the add-in
- 
-1. Register your application in Azure by running the following NPM scipt at the root of your project folder where package.json is located: **npm run configure-sso**
 
-- Your browser will open and prompt for authentication. Enter the user name and passowrd of a user with tenant admin permissions.  If you created an account using [Office 365 Developer Program](https://aka.ms/devprogramsignup), this should suffice.
-- Once you have successfully logged in, you will see the scripted steps for registering the application executing in the command shell
+1. Register your application in Azure by running the following NPM script at the root of your project folder where package.json is located: **npm run configure-sso**
+
+- Your browser will open and prompt for authentication. Enter the user name and password of a user with tenant admin permissions. If you created an account using [Office 365 Developer Program](https://aka.ms/devprogramsignup), this should suffice.
+- Once you have successfully logged in, you will see the script reporting each step it takes in the command shell.
 
 ### Run the solution
 
@@ -103,17 +54,13 @@ The sample sends a hardcoded query parameter on the URL for the Microsoft Graph 
 We'd love to get your feedback about this sample. You can send your feedback to us in the *Issues* section of this repository.
 Questions about developing Office Add-ins should be posted to [Stack Overflow](http://stackoverflow.com). Ensure your questions are tagged with [office-js] and [MicrosoftGraph].
 
-
 ## Additional resources
 
 * [Microsoft Graph documentation](https://docs.microsoft.com/graph/)
 * [Office Add-ins documentation](https://docs.microsoft.com/office/dev/add-ins/overview/office-add-ins)
 
 ## Copyright
+
 Copyright (c) 2019 Microsoft Corporation. All rights reserved.
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-<img src="https://telemetry.sharepointpnp.com/pnp-officeaddins/auth/Office-Add-in-NodeJS-SSO" />
-
-
