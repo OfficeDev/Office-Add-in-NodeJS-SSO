@@ -82,11 +82,11 @@ THIS README ASSUMES THAT YOU HAVE READ THE TOP LEVEL README IN THE ROOT OF THIS 
 
 1. Clone this repo.
 
-2. Open a command prompt in the `\src` folder of the project and run the command `npm install`.
+2. Open a command prompt in the `\Complete` folder of the project and run the command `npm install`.
 
-3. Trust the self-signed certificate file `\src\certs\server.crt`. For instructions, see [Installing the Self-signed certificate - Method 2](https://github.com/OfficeDev/generator-office/blob/master/src/docs/ssl.md#method-2-manually-install-the-certificate). 
+3. Run the command `npm run install-dev-certs`.
 
-4. Open the `\src` folder in the cloned project in your IDE.
+4. Open the `\Complete` folder in the cloned project in your IDE.
 
 5. Open the `.ENV` file and use the values that you copied in earlier. Set both the **CLIENT_ID** and to your **Application (client) ID**, and set the **CLIENT_SECRET** to your client secret. The values should **not** be in quotation marks. When you are done, the file should be similar to the following: 
 
@@ -96,7 +96,7 @@ THIS README ASSUMES THAT YOU HAVE READ THE TOP LEVEL README IN THE ROOT OF THIS 
     NODE_ENV=development
     ```
 
-6. Open the \src\public\javascripts\fallbackAuthDialog.js file. In the msalconfig declaration, replace the placeholder $application_GUID here$ with the Application ID that you copied when you registered your add-in. The value should be in quotation marks.
+6. Open the \Complete\public\javascripts\fallbackAuthDialog.js file. In the msalConfig declaration, replace the placeholder $application_GUID here$ with the Application ID that you copied when you registered your add-in. The value should be in quotation marks.
 
 7. In the add-in project, open the add-in manifest file “manifest\manifest_local.xml” and then scroll to the bottom of the file. Just above the end `</VersionOverrides>` tag, you'll find the following markup:
 
@@ -117,7 +117,7 @@ THIS README ASSUMES THAT YOU HAVE READ THE TOP LEVEL README IN THE ROOT OF THIS 
 
 ### Run the solution
 
-1. Open a command prompt in the root of the root of the `\src` folder. 
+1. Open a command prompt in the root of the root of the `\Complete` folder. 
 2. Run the command `npm start`. 
 3. You need to sideload the add-in into an Office application (Excel, Word, or PowerPoint) to test it. The instructions depend on your platform. There are links to instructions at [Sideload an Office Add-in for Testing](https://docs.microsoft.com/en-us/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing).
 7. In the Office application, on the **Home** ribbon, select the **Show Add-in** button in the **SSO Node.js** group to open the task pane add-in.
