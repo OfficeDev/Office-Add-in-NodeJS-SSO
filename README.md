@@ -2,14 +2,11 @@
 page_type: sample
 products:
 - office-excel
-- office-word
 - office-powerpoint
-- office-project
-- office-outlook
+- office-word
 - office-365
 languages:
 - javascript
-- typescript
 extensions:
   contentType: samples
   technologies:
@@ -17,75 +14,98 @@ extensions:
   - Microsoft Graph
   services:
   - Excel
-  - Outlook
   - Office 365
-  createdDate: 5/3/2017 2:24:40 PM
+  createdDate: 5/1/2017 2:09:09 PM
 ---
-# Office Add-in that supports Single Sign-on to Office, the Add-in, and Microsoft Graph
+# Office Add-in that that supports Single Sign-on to Office, the Add-in, and Microsoft Graph
 
-The `getAccessTokenAsync` API in Office.js enables users who are signed into Office to get access to an AAD-protected add-in and to Microsoft Graph without needing to sign-in again. This sample is built on Node.js and express. 
+The `getAccessToken` API in Office.js enables users who are signed into Office to get access to an AAD-protected add-in and to Microsoft Graph without needing to sign-in again. 
 
- > Note: The `getAccessTokenAsync` API is in preview.
+There are two versions of the sample in this repo, each with its own README file:
 
-## Table of Contents
-* [Change History](#change-history)
-* [Prerequisites](#prerequisites)
-* [To use the project](#to-use-the-project)
-* [Questions and comments](#questions-and-comments)
-* [Additional resources](#additional-resources)
+- In the **Complete** folder is a sample, whose README will walk you through the process of registering the add-in with Azure Active Directory (AAD) and configuring the project.
+- In the **SSOAutoSetup** folder is the same sample, but it contains a utility that will automate most of the registration and configuration. Instructions are in the README in that folder. We recommend that you go through the manual process in the Complete folder if you have never registered an app with AAD before. Doing so will give you a better understanding of what AAD does and the significance of the configuration steps.
+- **Under construction:** We plan to have a "Before" version which will be used in conjunction with a walkthrough article at [Create a Node.js Office Add-in that uses single sign-on](https://docs.microsoft.com/en-us/office/dev/add-ins/develop/create-sso-office-add-ins-nodejs).
 
-## Change History
+These sample is built on Node.JS, Express, and Microsoft Authentication Library for JavaScript (msal.js). 
 
-* May 10, 2017: Initial version.
-* September 15, 2017: Added handling for 2FA.
-* December 8, 2017: Added extensive error handling.
-* December 19, 2018: Updated to more recent versions of some dependencies.
-* January 7, 2019: Added information about application security mitigations.
+ > Note: The `getAccessToken` API is in preview.
+
+## Features
+
+Integrating data from online service providers increases the value and adoption of your add-ins. This code sample shows you how to connect your add-in to Microsoft Graph. Use this code sample to:
+
+* Build an Add-in using Node.js, Express, msal.js, and Office.js. 
+* Connect to Microsoft Graph from an Office Add-in.
+* Use the OneDrive REST APIs from Microsoft Graph.
+* Use the Express routes and middleware to implement the OAuth 2.0 authorization framework in an add-in.
+* See how to use the Single Sign-on (SSO) API.
+* See how an add-in can fall back to an interactive sign-in in scenarios where SSO is not available.
+* Use the msal.js library to implement a fallback authentication/authorization system that is invoked when Office SSO is not available.
+* Show a dialog using the Office UI namespace when Office SSO is not available.
+* Use add-in commands in an add-in.
+
+
+## Applies to
+
+- Excel on Windows (subscription)
+- PowerPoint on Windows (subscription)
+- Word on Windows (subscription)
 
 ## Prerequisites
 
-* An Office 365 account.
-* During the preview phase, the SSO requires Office 365 (the subscription version of Office, also called “Click to Run”). You should use the latest monthly version and build from the Insiders channel. You need to be an Office Insider to get this version. For more information, see [Be an Office Insider](https://products.office.com/office-insider?tab=tab-1). Please note that when a build graduates to the production semi-annual channel, support for preview features, including SSO, is turned off for that build.
-* [Git Bash](https://git-scm.com/downloads) (Or another git client.)
-* TypeScript version 2.2.2 or later.
+To run this code sample, the following are required.
 
-## Deviations from Best Practices
+* A code editor. We recommend Visual Studio Code which was used to create the sample.
+* An Office 365 account which you can get by joining the [Office 365 Developer Program](https://aka.ms/devprogramsignup) that includes a free 1 year subscription to Office 365. During the preview phase, the SSO requires Office 365 (the subscription version of Office, also called “Click to Run”). You should use the latest monthly version and build from the Insiders channel. You need to be an Office Insider to get this version. For more information, see [Be an Office Insider](https://products.office.com/office-insider?tab=tab-1). 
+    > Note: When a build graduates to the production semi-annual channel, support for preview features, including SSO, is turned off for that build.
+* At least a few files and folders stored on OneDrive for Business in your Office 365 subscription.
+* A Microsoft Azure Tenant. This add-in requires Azure Active Directory (AD). Azure AD provides identity services that applications use for authentication and authorization. A trial subscription can be acquired here: [Microsoft Azure](https://account.windowsazure.com/SignUp).
 
-The samples in this repo are narrowly focused on demonstrating the use of the SSO APIs. To keep it simple, some best practices are not followed, including best practices in web application security. *You should not use any of these samples as the starting point of a production add-in unless you are prepared to make substantial changes.* We recommend that you begin a production add-in by using one of the Office Add-in projects in Visual Studio, or by generating a new project with the [Yeoman Generator for Office Add-ins](https://github.com/OfficeDev/generator-office).
+## Solution
 
-_Some_ of the points to keep in mind about these samples:
+Solution | Author(s)
+---------|----------
+Office Add-in Microsoft Graph ASP.NET | Microsoft
 
-* Do not ship reusable certs as these samples do. Produce your own certs for your server and make sure they are not web-accessible.
-* The samples send a hardcoded query parameter on the URL for the Microsoft Graph REST API. If you modify this code in a production add-in and any part of query parameter comes from user input, be sure that it is sanitized so that it cannot be used in a Response header injection attack.
+## Version history
+
+Version  | Date | Comments
+---------| -----| --------
+1.0 | May 10, 2017| Initial release
+1.0 | September 15, 2017 | Added support for 2FA.
+1.0 | December 8, 2017 | Added extensive error handling.
+1.0 | January 7, 2019 | Added information about web application security practices.
+2.0 | October 26, 2019 | Changed to use new API and added Display Dialog API fallback.
+
+## Disclaimer
+
+**THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
+
+----------
 
 ## To use the project
 
-This sample is meant to accompany the walkthrough at: [Create a Node.js Office Add-in that uses Single Sign-on (preview)](https://dev.office.com/docs/add-ins/develop/create-sso-office-add-ins-nodejs).
+Please go to the README in the **Complete** or **SSOAutoSetup** folder for the next steps.
 
-There are three versions of the sample, in the folders **Before**, **Completed**, **Completed Multitenant**.
+## Security note
 
-To use the Before version and manually add the crucial SSO-oriented code, follow all the procedures in the article linked to above.
-
-To work with the Completed versions, follow all the procedures, except the sections "Code the client-side" and "Code the server-side" in the article linked to above.
-
-_Completed Multitenant_ version allows you to use SSO with any Microsoft account regardless of its domain.
-
-> **IMPORTANT**: Regardless of which version you use, you will need to trust a certificate for the localhost. Follow the instructions [here](https://github.com/OfficeDev/generator-office/blob/master/src/docs/ssl.md), except that the `certs` folders for each of the versions in this repo is in the `/src` folder, not the root folder.
+These samples send a hardcoded query parameter on the URL for the Microsoft Graph REST API. If you modify this code in a production add-in and any part of query parameter comes from user input, be sure that it is sanitized so that it cannot be used in a Response header injection attack.
 
 ## Questions and comments
 
 We'd love to get your feedback about this sample. You can send your feedback to us in the *Issues* section of this repository.
-
-Questions about Microsoft Office 365 development in general should be posted to [Stack Overflow](http://stackoverflow.com/questions/tagged/office-js+API). If your question is about the Office JavaScript APIs, make sure that your questions are tagged with [office-js] and [API].
+Questions about developing Office Add-ins should be posted to [Stack Overflow](http://stackoverflow.com). Ensure your questions are tagged with [office-js] and [MicrosoftGraph].
 
 ## Additional resources
 
-* [Office add-in documentation](https://msdn.microsoft.com/en-us/library/office/jj220060.aspx)
-* [Office Dev Center](http://dev.office.com/)
-* More Office Add-in samples at [OfficeDev on Github](https://github.com/officedev)
+* [Microsoft Graph documentation](https://docs.microsoft.com/graph/)
+* [Office Add-ins documentation](https://docs.microsoft.com/office/dev/add-ins/overview/office-add-ins)
 
 ## Copyright
 
-Copyright (c) 2017 Microsoft Corporation. All rights reserved.
+Copyright (c) 2019 Microsoft Corporation. All rights reserved.
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+<img src="https://telemetry.sharepointpnp.com/pnp-officeaddins/auth/Office-Add-in-NodeJS-SSO" />
