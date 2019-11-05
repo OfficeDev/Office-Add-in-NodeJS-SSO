@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const path = require("path");
+exports.azAddSecretCommandPath = path.resolve(`${__dirname}/scripts/azAddSecret.txt`);
 exports.azCliInstallCommandPath = path.resolve(`${__dirname}/scripts/azCliInstallCmd.ps1`);
 exports.azRestpCreateCommandPath = path.resolve(`${__dirname}/scripts/azRestAppCreateCmd.txt`);
 exports.fallbackAuthDialogFilePath = path.resolve(`${process.cwd()}/src/public/javascripts/fallbackAuthDialog.js`);

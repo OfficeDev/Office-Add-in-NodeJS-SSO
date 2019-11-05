@@ -3,7 +3,6 @@ const childProcess = require('child_process');
 const defaults = require('./defaults');
 require('dotenv').config();
 const fs = require('fs');
-const passwordGenerator = require('generate-password');
 const manifest = require('office-addin-manifest');
 
 configureSSOApplication();
@@ -22,10 +21,10 @@ async function configureSSOApplication() {
     if (userJson) {
         console.log('Login was successful!');
         const manifestInfo = await manifest.readManifestFile(defaults.manifestPath);
-        const secret = passwordGenerator.generate({ length: 32, numbers: true, uppercase: true, strict: true });
-        const applicationJson = await createNewApplication(manifestInfo.displayName, secret);
+        const applicationJson = await createNewApplication(manifestInfo.displayName);
         ssoAppData.writeApplicationData(applicationJson.appId);
-        ssoAppData.addSecretToCredentialStore(manifestInfo.displayName, secret);
+        const secretJson = await setApplicationSecret(applicationJson);
+        ssoAppData.addSecretToCredentialStore(manifestInfo.displayName, secretJson.secretText);
         updateProjectManifest(applicationJson.appId);
         await logoutAzure();
         console.log("Outputting Azure application info:\n");
@@ -37,12 +36,12 @@ async function configureSSOApplication() {
     }
 }
 
-async function createNewApplication(ssoAppName, secret) {
+async function createNewApplication(ssoAppName) {
     try {
         console.log('Registering new application in Azure');
         let azRestNewAppCommand = await fs.readFileSync(defaults.azRestpCreateCommandPath, 'utf8');
         const re = new RegExp('{SSO-AppName}', 'g');
-        azRestNewAppCommand = azRestNewAppCommand.replace(re, ssoAppName).replace('{SSO-Secret}', secret).replace('{PORT}', process.env.PORT);
+        azRestNewAppCommand = azRestNewAppCommand.replace(re, ssoAppName).replace('{PORT}', process.env.PORT);
         const applicationJson = await promiseExecuteCommand(azRestNewAppCommand, true /* returnJson */, true /* configureSSO */);
         if (applicationJson) {
             console.log('Application was successfully registered with Azure');
@@ -135,6 +134,11 @@ async function promiseExecuteCommand(cmd, returnJson = true, configureSSO = fals
         try {
             childProcess.exec(cmd, async (err, stdout, stderr) => {
                 let results = stdout;
+                if (err) {
+                    console.log(stderr);
+                    reject(stderr);
+                }
+                
                 if (results !== '' && returnJson) {
                     results = JSON.parse(results);
                 }
@@ -150,6 +154,18 @@ async function promiseExecuteCommand(cmd, returnJson = true, configureSSO = fals
             reject(err);
         }
     });
+}
+
+async function setApplicationSecret(applicationJson) {
+    try {
+        console.log('Setting identifierUri');
+        let azRestCommand = await fs.readFileSync(defaults.azAddSecretCommandPath, 'utf8');
+        azRestCommand = azRestCommand.replace('<App_Object_ID>', applicationJson.id);
+        const secretJson = await promiseExecuteCommand(azRestCommand);
+        return secretJson;
+    } catch (err) {
+        throw new Error(`Unable to set identifierUri for ${applicationJson.displayName}. \n${err}`);
+    }
 }
 
 async function setImplicitGrantPermissions(applicationJson) {
