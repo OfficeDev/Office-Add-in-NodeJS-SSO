@@ -133,12 +133,7 @@ async function promiseExecuteCommand(cmd, returnJson = true, configureSSO = fals
     return new Promise((resolve, reject) => {
         try {
             childProcess.exec(cmd, async (err, stdout, stderr) => {
-                let results = stdout;
-                if (err) {
-                    console.log(stderr);
-                    reject(stderr);
-                }
-                
+                let results = stdout;              
                 if (results !== '' && returnJson) {
                     results = JSON.parse(results);
                 }
