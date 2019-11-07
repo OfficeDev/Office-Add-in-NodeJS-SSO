@@ -13,7 +13,7 @@ function addSecretToCredentialStore(ssoAppName, secret) {
                 break;
             case "darwin":
                 console.log(`Adding application secret for ${ssoAppName} to Mac OS Keychain`);
-                const addSecretToMacStoreCommand = `sudo security add-generic-password -a ${os.userInfo().username} -s ${ssoAppName} -w ${secret}`;
+                const addSecretToMacStoreCommand = `sudo security add-generic-password -a ${os.userInfo().username} -s "${ssoAppName}" -w "${secret}"`;
                 childProcess.execSync(addSecretToMacStoreCommand, { stdio: "pipe" });
                 break;
             default:
