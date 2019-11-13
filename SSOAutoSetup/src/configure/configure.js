@@ -141,7 +141,6 @@ async function promiseExecuteCommand(cmd, returnJson = true, configureSSO = fals
                     await setIdentifierUri(results);
                     await setSignInAudience(results);
                     await grantAdminContent(results);
-                    await setImplicitGrantPermissions(results);
                 }
                 resolve(results);
             });
@@ -161,16 +160,6 @@ async function setApplicationSecret(applicationJson) {
     } catch (err) {
         throw new Error(`Unable to set identifierUri for ${applicationJson.displayName}. \n${err}`);
     }
-}
-
-async function setImplicitGrantPermissions(applicationJson) {
-    console.log('Setting implicit grant permissions');
-    try {
-        const oathAllowImplictFlowCommand = `az ad app update --id ${applicationJson.id} --oauth2-allow-implicit-flow true`;
-        await promiseExecuteCommand(oathAllowImplictFlowCommand);
-    } catch (err) {
-        throw new Error(`Unable to set oauth2AllowImplicitFlow for ${applicationJson.displayName}. \n${err}`);
-    }   
 }
 
 async function setIdentifierUri(applicationJson) {
