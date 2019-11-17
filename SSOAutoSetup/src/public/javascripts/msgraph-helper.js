@@ -16,8 +16,13 @@ async function getGraphData(accessToken, apiURLsegment, queryParamsSegment) {
 
     return new Promise(async (resolve, reject) => { 
 
-        const oData = await getData(accessToken, domain, apiURLsegment, versionURLsegment, queryParamsSegment);
-        resolve(oData);
+        try {
+            const oData = await getData(accessToken, domain, apiURLsegment, versionURLsegment, queryParamsSegment);
+            resolve(oData);
+        }
+        catch(error) {
+            reject(Error("Unable to call Microsoft Graph. " + error.toString()));
+        }
     })        
 } 
 
