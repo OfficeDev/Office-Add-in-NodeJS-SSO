@@ -16,7 +16,9 @@ extensions:
   - Excel
   - Office 365
   createdDate: 5/1/2017 2:09:09 PM
+description: "This sample shows how to add support for SSO in your add-in."
 ---
+
 # Office Add-in that that supports Single Sign-on to Office, the Add-in, and Microsoft Graph
 
 THIS README ASSUMES THAT YOU HAVE READ THE TOP LEVEL README IN THE ROOT OF THIS REPO. IT CONTAINS IMPORTANT INFORMATION ABOUT THE SAMPLES, **INCLUDING PREREQUISITES**.
