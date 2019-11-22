@@ -21,13 +21,13 @@ extensions:
 
 The `getAccessToken` API in Office.js enables users who are signed into Office to get access to an AAD-protected add-in and to Microsoft Graph without needing to sign-in again. 
 
-There are two versions of the sample in this repo, each with its own README file:
+There are three versions of the sample in this repo, one of which has its own README file:
 
-- In the **Complete** folder is a sample, whose README will walk you through the process of registering the add-in with Azure Active Directory (AAD) and configuring the project.
-- In the **SSOAutoSetup** folder is the same sample, but it contains a utility that will automate most of the registration and configuration. Instructions are in the README in that folder. We recommend that you go through the manual process in the Complete folder if you have never registered an app with AAD before. Doing so will give you a better understanding of what AAD does and the significance of the configuration steps.
-- **Under construction:** We plan to have a "Before" version which will be used in conjunction with a walkthrough article at [Create a Node.js Office Add-in that uses single sign-on](https://docs.microsoft.com/en-us/office/dev/add-ins/develop/create-sso-office-add-ins-nodejs).
+- In the **Begin** folder is the starting point for the SSO walkthrough at at [Create a Node.js Office Add-in that uses single sign-on](https://docs.microsoft.com/office/dev/add-ins/develop/create-sso-office-add-ins-nodejs). Please follow the instructions in the article.
+- In the **Complete** folder is the completed sample you would have if you completed the walkthrough. To use this version, follow the instructions in the article [Create a Node.js Office Add-in that uses single sign-on](https://docs.microsoft.com/office/dev/add-ins/develop/create-sso-office-add-ins-nodejs), but substitute "Complete" for "Begin" in those instructions and skip the sections **Code the client-side** and **Code the server-side**.
+- In the **SSOAutoSetup** folder is essentially the same complete sample (with some slight differences in folder structure), but it contains a utility that will automate most of the registration and configuration. Instructions are in the README in that folder. Use this version if you would like to see a working SSO sample right away. However, we recommend that at some point you go through the manual process of registration and configuration that is documented in [Create a Node.js Office Add-in that uses single sign-on](https://docs.microsoft.com/office/dev/add-ins/develop/create-sso-office-add-ins-nodejs), if you have never registered an app with AAD before. Doing so will give you a better understanding of what AAD does and the significance of the configuration steps.
 
-These sample is built on Node.JS, Express, and Microsoft Authentication Library for JavaScript (msal.js). 
+These samples are built on Node.JS, Express, and Microsoft Authentication Library for JavaScript (msal.js). 
 
  > Note: The `getAccessToken` API is in preview.
 
