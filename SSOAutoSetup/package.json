@@ -15,7 +15,7 @@
     "start-server": "tsc && node src/bin/www"
   },
   "dependencies": {
-    "@types/jquery": "^3.3.31",
+    "@types/jquery": "^3.5.1",
     "@types/office-js": "^1.0.29",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
