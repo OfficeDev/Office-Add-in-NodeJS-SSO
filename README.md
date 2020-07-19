@@ -4,7 +4,7 @@ products:
 - office-excel
 - office-powerpoint
 - office-word
-- office-365
+- microsoft-365
 languages:
 - javascript
 extensions:
@@ -14,7 +14,7 @@ extensions:
   - Microsoft Graph
   services:
   - Excel
-  - Office 365
+  - Microsoft 365
   createdDate: 5/1/2017 2:09:09 PM
 ---
 # Office Add-in that that supports Single Sign-on to Office, the Add-in, and Microsoft Graph
@@ -57,9 +57,9 @@ Integrating data from online service providers increases the value and adoption 
 To run this code sample, the following are required.
 
 * A code editor. We recommend Visual Studio Code which was used to create the sample.
-* An Office 365 account which you can get by joining the [Office 365 Developer Program](https://aka.ms/devprogramsignup) that includes a free 1 year subscription to Office 365. During the preview phase, the SSO requires Office 365 (the subscription version of Office, also called “Click to Run”). You should use the latest monthly version and build from the Insiders channel. You need to be an Office Insider to get this version. For more information, see [Be an Office Insider](https://products.office.com/office-insider?tab=tab-1). 
+* A Microsoft 365 account which you can get by joining the [Microsoft 365 Developer Program](https://aka.ms/devprogramsignup) that includes a free 1 year subscription to Microsoft 365. During the preview phase, the SSO requires Microsoft 365 (which includes the subscription version of Office). You should use the latest monthly version and build from the Insiders channel. You need to be an Office Insider to get this version. For more information, see [Be an Office Insider](https://products.office.com/office-insider?tab=tab-1). 
     > Note: When a build graduates to the production semi-annual channel, support for preview features, including SSO, is turned off for that build.
-* At least a few files and folders stored on OneDrive for Business in your Office 365 subscription.
+* At least a few files and folders stored on OneDrive for Business in your Microsoft 365 subscription.
 * A Microsoft Azure Tenant. This add-in requires Azure Active Directory (AD). Azure AD provides identity services that applications use for authentication and authorization. A trial subscription can be acquired here: [Microsoft Azure](https://account.windowsazure.com/SignUp).
 
 ## Solution

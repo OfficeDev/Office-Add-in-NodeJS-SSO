@@ -4,7 +4,7 @@ products:
 - office-excel
 - office-powerpoint
 - office-word
-- office-365
+- microsoft-365
 languages:
 - javascript
 extensions:
@@ -14,7 +14,7 @@ extensions:
   - Microsoft Graph
   services:
   - Excel
-  - Office 365
+  - Microsoft 365
   createdDate: 5/1/2017 2:09:09 PM
 description: "This sample shows how to add support for SSO in your add-in."
 ---
@@ -35,17 +35,17 @@ THIS README ASSUMES THAT YOU HAVE READ THE TOP LEVEL README IN THE ROOT OF THIS 
 
 1. Register your application in Azure by running the following NPM script at the root of your project folder where package.json is located: **npm run configure-sso**
 
-- Your browser will open and prompt for authentication. Enter the user name and password of a user with tenant admin permissions. If you created an account using [Office 365 Developer Program](https://aka.ms/devprogramsignup), this should suffice.
+- Your browser will open and prompt for authentication. Enter the user name and password of a user with tenant admin permissions. If you created an account using [Microsoft 365 developer program](https://aka.ms/devprogramsignup), this should suffice.
 - Once you have successfully logged in, you will see the script reporting each step it takes in the command shell.
 
 ### Run the solution
 
 1. Open a command prompt in the root of the project.
 2. Run the command `npm start`. 
-3. A prompt will appear asking if its OK to register the dev-certifates for the dev-server.  Say 'Yes" to this dialog.  **NOTE:** The dev-certs dialog may not be readily visible if you have many windows open, so you may need to minimize other windows to see it.
+3. A prompt will appear asking if its OK to register the dev-certificates for the dev-server.  Say 'Yes" to this dialog.  **NOTE:** The dev-certs dialog may not be readily visible if you have many windows open, so you may need to minimize other windows to see it.
 4. Excel will automatically start by default.  You can change the default desktop application to Word or PowerPoint by updating the **app-to-debug** in the config section of package.json
 5. In the Office application, on the **Home** ribbon, select the **Show Add-in** button in the **SSO Node.js** group to open the task pane add-in.
-6. Click the **Get OneDrive File Names** button. If you are logged into Office with either a Work or School (Office 365) account or Microsoft Account, and SSO is working as expected, the first 10 file and folder names in your OneDrive for Business are inserted into the document. (It may take as much as 15 seconds the first time.) If you are not logged in, or you are in a scenario that does not support SSO, or SSO is not working for any reason, you will be prompted to log in. After you log in, the file and folder names appear.
+6. Click the **Get OneDrive File Names** button. If you are logged into Office with either a Microsoft 365 Education or work account, or a Microsoft account, and SSO is working as expected, the first 10 file and folder names in your OneDrive for Business are inserted into the document. (It may take as much as 15 seconds the first time.) If you are not logged in, or you are in a scenario that does not support SSO, or SSO is not working for any reason, you will be prompted to log in. After you log in, the file and folder names appear.
 
 ## Security note
 
