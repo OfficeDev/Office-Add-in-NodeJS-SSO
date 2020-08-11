@@ -75,6 +75,7 @@ Version  | Date | Comments
 1.0 | December 8, 2017 | Added extensive error handling.
 1.0 | January 7, 2019 | Added information about web application security practices.
 2.0 | October 26, 2019 | Changed to use new API and added Display Dialog API fallback.
+2.1 | August 11, 2020 | Removed preview note because the API has released.
 
 ## Disclaimer
 
