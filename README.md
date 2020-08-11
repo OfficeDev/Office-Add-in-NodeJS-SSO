@@ -29,8 +29,6 @@ There are three versions of the sample in this repo, one of which has its own RE
 
 These samples are built on Node.JS, Express, and Microsoft Authentication Library for JavaScript (msal.js). 
 
- > Note: The `getAccessToken` API is in preview.
-
 ## Features
 
 Integrating data from online service providers increases the value and adoption of your add-ins. This code sample shows you how to connect your add-in to Microsoft Graph. Use this code sample to:
