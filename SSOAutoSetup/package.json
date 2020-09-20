@@ -28,7 +28,7 @@
     "jshint": "^2.10.2",
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
