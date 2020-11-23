@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@types/jquery": "^3.5.1",
-    "@types/office-js": "^1.0.29",
+    "@types/office-js": "^1.0.148",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.1.0",
