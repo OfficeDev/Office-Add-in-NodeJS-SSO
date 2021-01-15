@@ -9,7 +9,7 @@
     "start": "tsc && node ./bin/www"
   },
   "dependencies": {
-    "@types/jquery": "^3.5.0",
+    "@types/jquery": "^3.5.1",
     "@types/office-js": "^1.0.29",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -17,7 +17,7 @@
     "express": "~4.16.1",
     "form-urlencoded": "^4.0.0",
     "http-errors": "~1.6.3",
-    "jQuery": "^1.7.4",
+    "jquery": "^3.5.1",
     "jshint": "^2.10.2",
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
