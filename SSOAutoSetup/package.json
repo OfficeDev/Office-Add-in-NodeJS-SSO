@@ -2,15 +2,11 @@
   "name": "ssoapp",
   "version": "0.0.0",
   "private": true,
-  "config": {
-    "app-to-debug": "excel",
-    "app-type-to-debug": "desktop"
-  },
   "scripts": {
     "configure-sso": "node src/configure/configure.js",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "sideload": "office-addin-debugging start manifest.xml",
+    "sideload": "office-addin-debugging start manifest.xml --app excel",
     "start": "concurrently \"npm run start-server\" \"npm run sideload\" ",
     "start-server": "tsc && node src/bin/www"
   },
@@ -29,13 +25,13 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.1",
-    "pug": "2.0.0-beta11"
+    "pug": "^3.0.2"
   },
   "devDependencies": {
+    "concurrently": "^6.0.0",
     "office-addin-debugging": "^3.0.16",
     "office-addin-dev-certs": "^1.4.11",
     "office-addin-manifest": "^1.4.12",
-    "concurrently": "^4.1.2",
     "typescript": "^3.6.4"
   }
 }
