@@ -11,8 +11,8 @@ if (!window.Promise) {
 }
 
 Office.onReady(function(info) {
-    $(document).ready(function() {
-        $('#getGraphDataButton').click(getGraphData);
+    $(function() {
+        $('#getGraphDataButton').on('click',getGraphData);
     });
 });
 
@@ -26,7 +26,7 @@ async function getGraphData() {
             // Microsoft Graph requires an additional form of authentication. Have the Office host 
             // get a new token using the Claims string, which tells AAD to prompt the user for all 
             // required forms of authentication.
-            let mfaBootstrapToken = await OfficeRuntime.auth.getAccessToken({ authChallenge: exchangeResponse.claims });
+            let mfaBootstrapToken = await  OfficeRuntime.auth.getAccessToken({ authChallenge: exchangeResponse.claims });
             exchangeResponse = await getGraphToken(mfaBootstrapToken);
         }
         

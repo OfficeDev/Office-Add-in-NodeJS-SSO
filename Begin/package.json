@@ -9,23 +9,23 @@
     "start": "tsc && node ./bin/www"
   },
   "dependencies": {
-    "@types/jquery": "^3.5.1",
-    "@types/office-js": "^1.0.29",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "dotenv": "^8.1.0",
-    "express": "~4.16.1",
-    "form-urlencoded": "^4.0.0",
-    "http-errors": "~1.6.3",
-    "jquery": "^3.5.1",
-    "jshint": "^2.10.2",
+    "@types/jquery": "^3.5.5",
+    "@types/office-js": "^1.0.178",
+    "cookie-parser": "~1.4.5",
+    "debug": "~4.3.1",
+    "dotenv": "^9.0.2",
+    "express": "~4.17.1",
+    "form-urlencoded": "^6.0.3",
+    "http-errors": "~1.8.0",
+    "jquery": "^3.6.0",
+    "jshint": "^2.12.0",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "~1.9.1",
+    "morgan": "~1.10.0",
     "node-fetch": "^2.6.1",
     "pug": "^3.0.2"
   },
   "devDependencies": {
-    "office-addin-dev-certs": "1.5.5",
-    "typescript": "^3.6.4"
+    "office-addin-dev-certs": "1.5.18",
+    "typescript": "^4.2.4"
   }
 }

@@ -8,7 +8,7 @@ var express = require('express');
 var router = express.Router();
 const defaults = require('./../configure/defaults');
 var fetch = require('node-fetch');
-var form = require('form-urlencoded').default;
+var formurlencoded = require('form-urlencoded');
 const manifest = require('office-addin-manifest');
 var ssoAppData = require('./../configure/ssoAppDataSetttings');
 
@@ -39,7 +39,7 @@ router.get('/', async function(req, res, next) {
     try {
       const tokenResponse = await fetch(`${stsDomain}/${tenant}/${tokenURLSegment}`, {
         method: 'POST',
-        body: form(formParams),
+        body: formurlencoded(formParams),
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/x-www-form-urlencoded'
