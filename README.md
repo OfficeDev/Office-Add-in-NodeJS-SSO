@@ -1,23 +1,8 @@
----
-page_type: sample
-products:
-- office-excel
-- office-powerpoint
-- office-word
-- microsoft-365
-languages:
-- javascript
-extensions:
-  contentType: samples
-  technologies:
-  - Add-ins
-  - Microsoft Graph
-  services:
-  - Excel
-  - Microsoft 365
-  createdDate: 5/1/2017 2:09:09 PM
----
-# Office Add-in that that supports Single Sign-on to Office, the Add-in, and Microsoft Graph
+# [MOVED] Office Add-in that that supports Single Sign-on to Office, the Add-in, and Microsoft Graph
+
+**Note:** This sample was moved to the [PnP-OfficeAddins repo](https://github.com/OfficeDev/PnP-OfficeAddins) and is located at https://github.com/OfficeDev/PnP-OfficeAddins/tree/main/Samples/auth/Office-Add-in-NodeJS-SSO
+
+This repo is archived and no longer actively maintained. Security vulnerabilities may exist in the project, or its dependencies. If you plan to reuse or run any code from this repo, be sure to perform appropriate security checks on the code or dependencies first. Do not use this project as the starting point of a production Office Add-in. Always start your production code by using the Office/SharePoint development workload in Visual Studio, or the [Yeoman generator for Office Add-ins](https://github.com/OfficeDev/generator-office), and follow security best practices as you develop the add-in.
 
 The `getAccessToken` API in Office.js enables users who are signed into Office to get access to an AAD-protected add-in and to Microsoft Graph without needing to sign-in again. 
 
